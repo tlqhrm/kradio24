@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 웹 전용 스타일 */
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #000;
+}
+
+#root {
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* 그라디언트 fallback */
+.gradient-emerald {
+  background: linear-gradient(135deg, #059669 0%, #0d9488 100%);
+}

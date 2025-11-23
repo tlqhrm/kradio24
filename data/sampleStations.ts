@@ -1,0 +1,114 @@
+import { parseM3UToStations } from '@/utils/m3uParser';
+import { RadioStation } from '@/types/radio';
+
+/**
+ * 한국 라디오 방송국 M3U 데이터
+ */
+const koreanRadioM3U = `#EXTM3U
+#EXTINF:-1,KBS 1라디오
+https://radio.bsod.kr/stream/?stn=kbs&ch=1radio
+#EXTINF:-1,KBS 2라디오
+https://radio.bsod.kr/stream/?stn=kbs&ch=2radio
+#EXTINF:-1,KBS 3라디오
+https://radio.bsod.kr/stream/?stn=kbs&ch=3radio
+#EXTINF:-1,KBS 1FM
+https://radio.bsod.kr/stream/?stn=kbs&ch=1fm
+#EXTINF:-1,KBS 2FM
+https://radio.bsod.kr/stream/?stn=kbs&ch=2fm
+#EXTINF:-1,KBS 한민족방송
+https://radio.bsod.kr/stream/?stn=kbs&ch=hanminjok
+#EXTINF:-1,MBC 표준FM
+https://radio.bsod.kr/stream/?stn=mbc&ch=sfm
+#EXTINF:-1,MBC FM4U
+https://radio.bsod.kr/stream/?stn=mbc&ch=fm4u
+#EXTINF:-1,MBC mini 올댓뮤직
+https://radio.bsod.kr/stream/?stn=mbc&ch=chm
+#EXTINF:-1,SBS 러브FM
+https://radio.bsod.kr/stream/?stn=sbs&ch=lovefm
+#EXTINF:-1,SBS 파워FM
+https://radio.bsod.kr/stream/?stn=sbs&ch=powerfm
+#EXTINF:-1,SBS 고릴라디오M
+https://radio.bsod.kr/stream/?stn=sbs&ch=dmb
+#EXTINF:-1,EBS FM
+https://radio.bsod.kr/stream/?stn=ebs
+#EXTINF:-1,OBS 라디오
+https://radio.bsod.kr/stream/?stn=obs
+#EXTINF:-1,iFM 경인방송
+https://radio.bsod.kr/stream/?stn=ifm
+#EXTINF:-1,YTN 라디오
+https://radio.bsod.kr/stream/?stn=ytn
+#EXTINF:-1,TBS FM
+https://radio.bsod.kr/stream/?stn=tbs&ch=fm
+#EXTINF:-1,TBS eFM
+https://radio.bsod.kr/stream/?stn=tbs&ch=efm
+#EXTINF:-1,TBN 경인교통방송
+https://radio.bsod.kr/stream/?stn=tbn
+#EXTINF:-1,CBS 표준FM
+https://radio.bsod.kr/stream/?stn=cbs&ch=sfm
+#EXTINF:-1,CBS 음악FM
+https://radio.bsod.kr/stream/?stn=cbs&ch=mfm
+#EXTINF:-1,CBS JOY4U
+https://radio.bsod.kr/stream/?stn=cbs&ch=joy4u
+#EXTINF:-1,FEBC 서울극동방송
+https://radio.bsod.kr/stream/?stn=febc
+#EXTINF:-1,BBS 서울불교방송
+https://radio.bsod.kr/stream/?stn=bbs
+#EXTINF:-1,CPBC 가톨릭평화방송
+https://radio.bsod.kr/stream/?stn=cpbc
+#EXTINF:-1,WBS 서울원음방송
+https://radio.bsod.kr/stream/?stn=wbs
+#EXTINF:-1,국방FM
+https://radio.bsod.kr/stream/?stn=kookbang
+#EXTINF:-1,국악방송
+https://radio.bsod.kr/stream/?stn=kugak
+#EXTINF:-1,AFN FM Humphreys
+https://radio.bsod.kr/stream/?stn=afn&city=humphreys
+#EXTINF:-1,관악FM
+https://radio.bsod.kr/stream/?stn=community&ch=gwanakfm
+#EXTINF:-1,마포FM
+https://radio.bsod.kr/stream/?stn=community&ch=mapofm
+#EXTINF:-1,성남FM
+https://radio.bsod.kr/stream/?stn=community&ch=seongnamfm
+#EXTINF:-1,서대문FM
+https://radio.bsod.kr/stream/?stn=community&ch=sdmfm
+#EXTINF:-1,수원FM
+https://radio.bsod.kr/stream/?stn=community&ch=sonefm
+#EXTINF:-1,GO구리FM
+https://radio.bsod.kr/stream/?stn=community&ch=gurifm
+#EXTINF:-1,단원FM
+https://radio.bsod.kr/stream/?stn=community&ch=dwfm`;
+
+/**
+ * 샘플 라디오 스테이션 목록 (한국)
+ */
+export const SAMPLE_STATIONS: RadioStation[] = parseM3UToStations(koreanRadioM3U);
+
+/**
+ * 카테고리별 스테이션 가져오기
+ */
+export function getStationsByCategory(category: string): RadioStation[] {
+  return SAMPLE_STATIONS.filter(station => station.category === category);
+}
+
+/**
+ * 장르별 스테이션 가져오기
+ */
+export function getStationsByGenre(genre: string): RadioStation[] {
+  return SAMPLE_STATIONS.filter(station => station.genre === genre);
+}
+
+/**
+ * 모든 카테고리 목록 가져오기
+ */
+export function getAllCategories(): string[] {
+  const categories = new Set(SAMPLE_STATIONS.map(s => s.category));
+  return Array.from(categories).sort();
+}
+
+/**
+ * 모든 장르 목록 가져오기
+ */
+export function getAllGenres(): string[] {
+  const genres = new Set(SAMPLE_STATIONS.map(s => s.genre).filter(Boolean) as string[]);
+  return Array.from(genres).sort();
+}

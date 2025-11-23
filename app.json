@@ -5,6 +5,37 @@
       "expo-router"
     ],
     "name": "kradio24",
-    "slug": "kradio24"
+    "slug": "kradio24",
+    "userInterfaceStyle": "automatic",
+    "android": {
+      "permissions": [
+        "INTERNET",
+        "FOREGROUND_SERVICE",
+        "WAKE_LOCK",
+        "INTERNET",
+        "FOREGROUND_SERVICE",
+        "WAKE_LOCK"
+      ],
+      "usesCleartextTraffic": true,
+      "statusBar": {
+        "backgroundColor": "#000000",
+        "barStyle": "light-content"
+      },
+      "package": "com.kradio24.app"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.kradio24.app",
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "audio"
+        ],
+        "UIStatusBarStyle": "UIStatusBarStyleLightContent",
+        "UIViewControllerBasedStatusBarAppearance": false
+      }
+    },
+    "web": {
+      "bundler": "metro"
+    }
   }
 }
