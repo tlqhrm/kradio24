@@ -4,13 +4,24 @@
     "plugins": [
       "expo-router",
       [
+        "react-native-track-player",
+        {
+          "iosCategory": "playback",
+          "shouldDuckAndroid": false
+        }
+      ],
+      [
         "expo-build-properties",
         {
           "android": {
             "newArchEnabled": false
           },
           "ios": {
-            "newArchEnabled": false
+            "newArchEnabled": false,
+            "usesIcloudStorage": false,
+            "infoPlist": {
+              "UIBackgroundModes": ["audio", "remote-notification"]
+            }
           }
         }
       ],

@@ -65,8 +65,12 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
             Capability.SkipToPrevious,
             Capability.Stop,
           ],
-          compactCapabilities: [Capability.Play, Capability.Pause],
-        });
+          compactCapabilities: [
+            Capability.Play,
+            Capability.Pause,
+            Capability.SkipToNext,
+          ],
+        )}
 
         setIsPlayerReady(true);
         console.log("✅ [AudioContext] TrackPlayer 초기화 완료");
