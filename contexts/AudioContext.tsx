@@ -1,8 +1,13 @@
 import React, { createContext, useContext, useState, useEffect, useRef } from "react";
-import { useAudioPlayer, setAudioModeAsync } from "expo-audio";
+import TrackPlayer, {
+  Event,
+  State,
+  Capability,
+  Track,
+  TrackType
+} from "react-native-track-player";
 import { RadioStation } from "@/types/radio";
 import { PlaybackState } from "@/types/radio";
-import { Audio } from "expo-av";
 
 interface AudioContextType {
   currentStation: RadioStation | null;
@@ -25,10 +30,10 @@ interface AudioContextType {
 const AudioContext = createContext<AudioContextType | undefined>(undefined);
 
 export function AudioProvider({ children }: { children: React.ReactNode }) {
-  const player = useAudioPlayer(null);
   const [currentStation, setCurrentStation] = useState<RadioStation | null>(null);
   const [playbackState, setPlaybackState] = useState<PlaybackState>(PlaybackState.IDLE);
   const [playlist, setPlaylist] = useState<RadioStation[]>([]);
+  const [isPlayerReady, setIsPlayerReady] = useState(false);
 
   // ============================================
   // Refs: 이벤트 리스너와 동기화
@@ -42,34 +47,40 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     : -1;
 
   // ============================================
-  // Audio Mode 설정 & 미디어 컨트롤 활성화
+  // TrackPlayer 초기화 & 미디어 컨트롤 설정
   // ============================================
   useEffect(() => {
-    console.log("🔧 [AudioContext] 초기화 시작");
+    console.log("🔧 [AudioContext] TrackPlayer 초기화 시작");
 
-    const setupAudioMode = async () => {
+    const setupPlayer = async () => {
       try {
-        // expo-audio 모드 설정
-        await setAudioModeAsync({
-          playsInSilentMode: true,
-          shouldPlayInBackground: true,
-          interruptionModeAndroid: "doNotMix",
+        await TrackPlayer.setupPlayer();
+
+        // 미디어 컨트롤 버튼 설정
+        await TrackPlayer.updateOptions({
+          capabilities: [
+            Capability.Play,
+            Capability.Pause,
+            Capability.SkipToNext,
+            Capability.SkipToPrevious,
+            Capability.Stop,
+          ],
+          compactCapabilities: [Capability.Play, Capability.Pause],
         });
 
-        // expo-av 오디오 활성화 (미디어 컨트롤용)
-        await Audio.setAudioModeAsync({
-          playsInSilentModeIOS: true,
-          staysActiveInBackground: true,
-          shouldDuckAndroid: false,
-        });
-
-        console.log("✅ [AudioContext] Audio Mode 및 미디어 컨트롤 설정 완료");
+        setIsPlayerReady(true);
+        console.log("✅ [AudioContext] TrackPlayer 초기화 완료");
       } catch (error) {
-        console.error("❌ [AudioContext] Audio Mode 설정 실패:", error);
+        console.error("❌ [AudioContext] TrackPlayer 초기화 실패:", error);
       }
     };
 
-    setupAudioMode();
+    setupPlayer();
+
+    return () => {
+      console.log("🔌 [AudioContext] TrackPlayer 정리");
+      TrackPlayer.reset();
+    };
   }, []);
 
   // ============================================
@@ -80,12 +91,18 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   }, [currentStation]);
 
   // ============================================
-  // 플레이어 이벤트 리스너 (한 번만 등록)
+  // TrackPlayer 이벤트 리스너
   // ============================================
   useEffect(() => {
     console.log("🎧 [AudioContext] 이벤트 리스너 등록");
 
-    const listener = player.addListener("playbackStatusUpdate", (status) => {
+    const errorSubscription = TrackPlayer.addEventListener(Event.PlaybackError, (error) => {
+      console.error("❌ [Event] PlaybackError:", JSON.stringify(error, null, 2));
+    });
+
+    const stateSubscription = TrackPlayer.addEventListener(Event.PlaybackState, async ({ state }) => {
+      console.log(`[Event] PlaybackState: ${state}`);
+
       // 방송국 없음 → IDLE
       if (!currentStationRef.current) {
         if (playbackState !== PlaybackState.IDLE) {
@@ -95,76 +112,78 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       }
 
       // ============================================
-      // 로딩 중: 자동 재생 트리거만 처리, 나머지 무시
+      // 로딩 중: 준비 완료 시 자동 재생
       // ============================================
       if (isLoadingNewStationRef.current) {
-        // 준비 완료 → 자동 재생
-        if (status.playbackState === "ready" || status.playbackState === "readyToPlay") {
-          player.play();
+        if (state === State.Ready) {
+          await TrackPlayer.play();
+          isLoadingNewStationRef.current = false;
+          setPlaybackState(PlaybackState.PLAYING);
+        } else if (state === State.Buffering || state === State.Loading) {
+          // 버퍼링 중에는 LOADING 상태 유지
+          setPlaybackState(PlaybackState.LOADING);
+        } else if (state === State.Error) {
+          setPlaybackState(PlaybackState.ERROR);
           isLoadingNewStationRef.current = false;
         }
-        // 로딩 중에는 다른 모든 이벤트 무시 (UI 깜빡임 방지)
         return;
       }
 
       // ============================================
       // 일반 상태: 플레이어 이벤트 반영
       // ============================================
-
-      // PLAYING 상태
-      if (
-        status.playbackState === "playing" ||
-        (status.playbackState === "ready" && status.currentTime > 0) ||
-        (status.playbackState === "readyToPlay" && status.currentTime > 0)
-      ) {
+      if (state === State.Playing) {
         if (userPausedRef.current) return; // 사용자 일시정지 중
         if (playbackState !== PlaybackState.PLAYING) {
           setPlaybackState(PlaybackState.PLAYING);
         }
-        return;
-      }
-
-      // PAUSED 상태
-      if (status.playbackState === "paused") {
+      } else if (state === State.Paused) {
         if (playbackState !== PlaybackState.PAUSED) {
           setPlaybackState(PlaybackState.PAUSED);
         }
         userPausedRef.current = false;
-        return;
-      }
-
-      // ERROR 상태
-      if (status.playbackState === "error") {
+      } else if (state === State.Stopped) {
+        if (playbackState !== PlaybackState.IDLE) {
+          setPlaybackState(PlaybackState.IDLE);
+        }
+      } else if (state === State.Buffering) {
+        if (playbackState !== PlaybackState.LOADING) {
+          setPlaybackState(PlaybackState.LOADING);
+        }
+      } else if (state === State.Error) {
         setPlaybackState(PlaybackState.ERROR);
-        isLoadingNewStationRef.current = false;
-        return;
       }
     });
 
     return () => {
       console.log("🔌 [AudioContext] 이벤트 리스너 해제");
-      listener.remove();
+      errorSubscription.remove();
+      stateSubscription.remove();
     };
-  }, [player]);
+  }, [playbackState]);
 
   // ============================================
   // 재생 함수
   // ============================================
   const play = async (station: RadioStation) => {
     try {
+      if (!isPlayerReady) {
+        console.warn("⚠️ [Action] TrackPlayer가 아직 준비되지 않음");
+        return;
+      }
+
       console.log("🎵 [Action] 재생:", station.name);
 
-      // 1. 즉시 플래그와 상태 초기화 (이후 모든 이벤트를 로딩 중으로 처리)
+      // 1. 즉시 플래그와 상태 초기화
       isLoadingNewStationRef.current = true;
       userPausedRef.current = false;
       setPlaybackState(PlaybackState.LOADING);
       setCurrentStation(station);
 
-      // 2. 현재 재생 중인 것 완전 정지 (소스 제거)
-      player.pause();
-      player.remove();
+      // 2. 기존 트랙 모두 제거
+      await TrackPlayer.reset();
 
-      // 2. 프록시 URL → 실제 스트림 URL 해석
+      // 3. URL 해석
       let finalUrl = station.streamUrl;
       try {
         console.log("🔍 [Action] URL 해석 중...");
@@ -178,10 +197,20 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         console.warn("⚠️ [Action] URL 해석 실패, 원본 사용");
       }
 
-      // 3. 소스 변경 (자동 재생은 이벤트 리스너에서 처리)
-      console.log("🔄 [Action] 소스 변경 시작");
-      player.replace(finalUrl);
+      // 4. 새 트랙 추가
+      const track: Track = {
+        url: finalUrl,
+        title: station.name,
+        artist: 'Live Radio',
+        isLiveStream: true,
+        type: TrackType.HLS,
+        contentType: 'application/x-mpegURL',
+      };
 
+      await TrackPlayer.add(track);
+      console.log("✅ [Action] 트랙 추가 완료, 재생 대기 중");
+
+      // 재생은 이벤트 리스너에서 Ready 상태일 때 자동 실행
     } catch (error) {
       console.error("❌ [Action] 재생 오류:", error);
       setPlaybackState(PlaybackState.ERROR);
@@ -192,7 +221,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   // ============================================
   // 일시정지 함수
   // ============================================
-  const pause = () => {
+  const pause = async () => {
     try {
       console.log("⏸️ [Action] 일시정지");
 
@@ -206,7 +235,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       setPlaybackState(PlaybackState.PAUSED);
 
       // 4. 플레이어 일시정지
-      player.pause();
+      await TrackPlayer.pause();
     } catch (error) {
       console.error("❌ [Action] 일시정지 오류:", error);
     }
@@ -215,7 +244,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   // ============================================
   // 재개 함수
   // ============================================
-  const resume = () => {
+  const resume = async () => {
     try {
       console.log("▶️ [Action] 재개");
 
@@ -223,7 +252,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       userPausedRef.current = false;
 
       // 2. 플레이어 재생 (상태는 이벤트 리스너가 PLAYING으로 업데이트)
-      player.play();
+      await TrackPlayer.play();
     } catch (error) {
       console.error("❌ [Action] 재개 오류:", error);
     }
@@ -232,7 +261,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   // ============================================
   // 정지 함수
   // ============================================
-  const stop = () => {
+  const stop = async () => {
     try {
       console.log("⏹️ [Action] 정지");
 
@@ -240,9 +269,9 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       userPausedRef.current = false;
       isLoadingNewStationRef.current = false;
 
-      // 2. 플레이어 정지 및 소스 제거
-      player.pause();
-      player.remove();
+      // 2. 플레이어 정지 및 트랙 제거
+      await TrackPlayer.stop();
+      await TrackPlayer.reset();
 
       // 3. 상태 리셋
       setCurrentStation(null);

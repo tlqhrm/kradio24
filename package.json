@@ -1,38 +1,40 @@
 {
   "name": "kradio24",
   "version": "1.0.0",
-  "main": "expo-router/entry",
+  "main": "index.js",
   "scripts": {
     "start": "expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "deploy": "npx expo export -p web && npx eas-cli@latest deploy"
+    "deploy": "npx expo export -p web && npx eas-cli@latest deploy",
+    "postinstall": "patch-package"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "^2.2.0",
-    "expo": "^54.0.1",
-    "expo-audio": "~1.0.15",
-    "expo-av": "~16.0.7",
-    "expo-constants": "~18.0.10",
-    "expo-linking": "~8.0.9",
-    "expo-router": "~6.0.0",
-    "expo-status-bar": "^3.0.8",
+    "@react-native-async-storage/async-storage": "1.23.1",
+    "expo": "~51.0.0",
+    "expo-asset": "~10.0.10",
+    "expo-build-properties": "~0.12.5",
+    "expo-constants": "~16.0.2",
+    "expo-linking": "~6.3.1",
+    "expo-router": "~3.5.24",
+    "expo-status-bar": "~1.12.1",
     "nativewind": "^4.2.1",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "react-native": "0.81.5",
-    "react-native-reanimated": "^4.1.5",
-    "react-native-safe-area-context": "^5.6.2",
-    "react-native-screens": "~4.16.0",
-    "react-native-web": "^0.21.0",
-    "react-native-worklets": "0.5.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-native": "0.74.5",
+    "react-native-reanimated": "~3.10.1",
+    "react-native-safe-area-context": "4.10.5",
+    "react-native-screens": "3.31.1",
+    "react-native-track-player": "^4.1.2",
+    "react-native-web": "~0.19.10",
     "tailwindcss": "^3.4.18"
   },
   "private": true,
   "devDependencies": {
-    "@types/react": "~19.1.10",
+    "@types/react": "~18.2.79",
     "babel-plugin-module-resolver": "^5.0.2",
-    "typescript": "~5.9.2"
+    "patch-package": "^8.0.1",
+    "typescript": "~5.3.3"
   }
 }
