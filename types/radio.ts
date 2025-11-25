@@ -7,6 +7,8 @@ export interface RadioStation {
   streamUrl: string;
   genre?: string;
   category?: string; // KBS, MBC, SBS, etc.
+  artist?: string; // 아티스트/방송사 이름
+  artwork?: string; // 썸네일 이미지 URL
   isFavorite: boolean;
   addedAt: Date;
   lastPlayedAt?: Date;

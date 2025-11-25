@@ -292,31 +292,18 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       setPlaybackState(PlaybackState.LOADING);
       setCurrentStation(station);
 
-      // 2. URL 해석 (먼저 해서 준비)
-      let finalUrl = station.streamUrl;
-      try {
-        console.log("🔍 [Action] URL 해석 중...");
-        const response = await fetch(station.streamUrl, {
-          method: 'HEAD',
-          redirect: 'follow',
-        });
-        finalUrl = response.url;
-        console.log("✅ [Action] URL 해석 완료:", finalUrl);
-      } catch (fetchError) {
-        console.warn("⚠️ [Action] URL 해석 실패, 원본 사용");
-      }
-
-      // 3. 새 트랙 생성
+      // 2. 트랙 즉시 생성 (URL 해석 생략으로 성능 개선)
       const track: Track = {
-        url: finalUrl,
+        url: station.streamUrl,  // 원본 URL 직접 사용 - 빠른 재생!
         title: station.name,
-        artist: 'Live Radio',
+        artist: station.artist || 'Live Radio',  // 방송국별 아티스트 이름
+        artwork: station.artwork,  // 썸네일 이미지
         isLiveStream: true,
         type: TrackType.HLS,
         contentType: 'application/x-mpegURL',
       };
 
-      // 4. 부드러운 트랙 전환
+      // 3. 부드러운 트랙 전환
       try {
         // 먼저 메타데이터 업데이트 (미디어 컨트롤에 새 방송국 이름 표시)
         try {

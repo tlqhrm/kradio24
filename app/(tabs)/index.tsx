@@ -1,7 +1,7 @@
 import { View, Text, ScrollView, TouchableOpacity, FlatList, Dimensions, ActivityIndicator } from "react-native";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { useState } from "react";
-import { SAMPLE_STATIONS, getAllCategories } from "@/data/sampleStations";
+import { STATIONS, getAllCategories } from "@/data/stations";
 import { RadioStation } from "@/types/radio";
 import { useAudio } from "@/contexts/AudioContext";
 import { PlaybackState } from "@/types/radio";
@@ -27,8 +27,8 @@ export default function HomeScreen() {
 
   // 카테고리 필터링
   const filteredStations = selectedCategory === "전체"
-    ? SAMPLE_STATIONS
-    : SAMPLE_STATIONS.filter(station => station.category === selectedCategory);
+    ? STATIONS
+    : STATIONS.filter(station => station.category === selectedCategory);
 
   // 하단 여백 계산: 탭 바 + 미니플레이어 + SafeArea + 여유
   const tabBarHeight = 60 + insets.bottom;

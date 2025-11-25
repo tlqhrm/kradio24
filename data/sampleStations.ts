@@ -1,5 +1,6 @@
 import { parseM3UToStations } from '@/utils/m3uParser';
 import { RadioStation } from '@/types/radio';
+import { getStationMetadata, DEFAULT_ARTWORK } from './stationMetadata';
 
 /**
  * 한국 라디오 방송국 M3U 데이터
@@ -80,8 +81,15 @@ https://radio.bsod.kr/stream/?stn=community&ch=dwfm`;
 
 /**
  * 샘플 라디오 스테이션 목록 (한국)
+ * M3U 파싱 후 메타데이터(썸네일 등) 적용
  */
-export const SAMPLE_STATIONS: RadioStation[] = parseM3UToStations(koreanRadioM3U);
+export const SAMPLE_STATIONS: RadioStation[] = parseM3UToStations(koreanRadioM3U).map(station => {
+  const metadata = getStationMetadata(station.name);
+  return {
+    ...station,
+    artwork: metadata?.artwork || DEFAULT_ARTWORK,
+  };
+});
 
 /**
  * 카테고리별 스테이션 가져오기
