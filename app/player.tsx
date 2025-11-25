@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
+import { View, Text, TouchableOpacity, ActivityIndicator, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { useAudio } from "@/contexts/AudioContext";
@@ -47,8 +47,16 @@ export default function PlayerScreen() {
 
       {/* 앨범 커버 */}
       <View className="flex-1 items-center justify-center px-8">
-        <View className="w-72 h-72 bg-emerald-600 rounded-3xl items-center justify-center shadow-2xl">
-          <Ionicons name="radio" size={120} color="white" />
+        <View className="w-72 h-72 bg-zinc-800 rounded-3xl items-center justify-center shadow-2xl overflow-hidden">
+          {currentStation.artwork ? (
+            <Image
+              source={typeof currentStation.artwork === 'number' ? currentStation.artwork : { uri: currentStation.artwork }}
+              className="w-full h-full"
+              resizeMode="cover"
+            />
+          ) : (
+            <Ionicons name="radio" size={120} color="white" />
+          )}
         </View>
 
         {/* 방송국 정보 */}

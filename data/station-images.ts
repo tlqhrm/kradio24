@@ -15,19 +15,21 @@
 // ===== KBS =====
 // 이미지를 추가하려면 주석을 해제하고 실제 파일 경로로 수정하세요
 export const STATION_IMAGES = {
-  // kbs1: require('@/assets/images/stations/kbs1.png'),
-  // kbs2: require('@/assets/images/stations/kbs2.png'),
-  // kbs3: require('@/assets/images/stations/kbs3.png'),
-  // kbs1fm: require('@/assets/images/stations/kbs-1fm.png'),
-  // kbs2fm: require('@/assets/images/stations/kbs-2fm.png'),
+  kbs1: require('@/assets/images/stations/kbs1(1).png'),
+  kbs2: require('@/assets/images/stations/kbs2.png'),
+  kbs3: require('@/assets/images/stations/kbs3.png'),
+  kbs1fm: require('@/assets/images/stations/kbs-1fm.png'),
+  kbs2fm: require('@/assets/images/stations/kbs-2fm.png'),
+  kbs: require('@/assets/images/stations/kbs.png'),
 
   // ===== MBC =====
-  // mbcSfm: require('@/assets/images/stations/mbc-sfm.png'),
-  // mbcFm4u: require('@/assets/images/stations/mbc-fm4u.png'),
+  mbc1: require('@/assets/images/stations/mbc1.png'),
+  mbcFm4u: require('@/assets/images/stations/mbc-fm4u.png'),
+  mbcAtm: require('@/assets/images/stations/mbc-atm.png'),
 
   // ===== SBS =====
-  // sbsLovefm: require('@/assets/images/stations/sbs-lovefm.png'),
-  // sbsPowerfm: require('@/assets/images/stations/sbs-powerfm.png'),
+  sbsLovefm: require('@/assets/images/stations/sbs-lovefm.png'),
+  sbsPowerfm: require('@/assets/images/stations/sbs-powerfm.png'),
 
   // 기타 방송국...
 } as const;

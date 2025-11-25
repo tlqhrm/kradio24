@@ -4,12 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b42a910c-f002-4e42-9171-edcb0f067abd" name="변경" comment="일단 안드로이드 빌드, 실행, 미디어컨트롤 다 잘됨">
+    <list default="true" id="b42a910c-f002-4e42-9171-edcb0f067abd" name="변경" comment="일단 안드로이드 미디어 컨트롤에 나옴">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contexts/AudioContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/contexts/AudioContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/sampleStations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/data/sampleStations.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/types/radio.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/radio.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/library.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/library.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/player.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/player.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/MiniPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/MiniPlayer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/StationContextMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/StationContextMenu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/station-images.ts" beforeDir="false" afterPath="$PROJECT_DIR$/data/station-images.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/stations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/data/stations.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/kradio24.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/kradio24/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,18 +34,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "tlqhrm"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;tlqhrm&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/tlqhrm/kradio24.git",
-    "accountId": "17845a48-d83b-48b9-9d92-0aed830ea1cd"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/tlqhrm/kradio24.git&quot;,
+    &quot;accountId&quot;: &quot;17845a48-d83b-48b9-9d92-0aed830ea1cd&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -53,25 +63,13 @@
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/tlqhrm/project/kradio24",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "/Applications/IntelliJ IDEA.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
+    "ts.external.directory.path": "/Users/a159/kradio24/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="kradio24" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="kradio24" />
-      <option name="filePath" />
-      <method v="2" />
-    </configuration>
-  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>

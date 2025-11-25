@@ -1,4 +1,5 @@
 import { RadioStation } from '@/types/radio';
+import {STATION_IMAGES} from "@/data/station-images";
 
 /**
  * 카테고리 상수
@@ -39,43 +40,43 @@ interface StationConfig {
 const STATION_CONFIGS: StationConfig[] = [
   // ===== KBS =====
   {
-    name: 'KBS 1라디오',
+    name: 'KBS 제1라디오 - FM 97.3',
     streamUrl: 'https://radio.bsod.kr/stream/?stn=kbs&ch=1radio',
     category: CATEGORIES.KBS,
     artist: 'KBS',
-    artwork: 'https://via.placeholder.com/300x300/FF0000/FFFFFF?text=KBS+1',
-    description: 'KBS 제1라디오',
+    artwork: STATION_IMAGES.kbs1,
+    description: 'KBS 제1라디오2',
   },
   {
-    name: 'KBS 2라디오',
+    name: 'KBS 해피 FM - FM 106.1',
     streamUrl: 'https://radio.bsod.kr/stream/?stn=kbs&ch=2radio',
     category: CATEGORIES.KBS,
     artist: 'KBS',
-    artwork: 'https://via.placeholder.com/300x300/0066CC/FFFFFF?text=KBS+2',
+    artwork: STATION_IMAGES.kbs2,
     description: 'KBS 제2라디오 - 행복한 오후',
   },
   {
-    name: 'KBS 3라디오',
+    name: 'KBS 제3라디오 - FM 104.9',
     streamUrl: 'https://radio.bsod.kr/stream/?stn=kbs&ch=3radio',
     category: CATEGORIES.KBS,
     artist: 'KBS',
-    artwork: 'https://via.placeholder.com/300x300/00AA00/FFFFFF?text=KBS+3',
+    artwork: STATION_IMAGES.kbs3,
     description: 'KBS 제3라디오 - 라디오 한민족',
   },
   {
-    name: 'KBS 1FM',
+    name: 'KBS 클래식 FM - FM 93.1',
     streamUrl: 'https://radio.bsod.kr/stream/?stn=kbs&ch=1fm',
     category: CATEGORIES.KBS,
     artist: 'KBS',
-    artwork: 'https://i.namu.wiki/i/kPGuguVHF2c0T-lWQ8qnmFiAyez4c8-0_fLqNwmvz3t3QSYSs0utK2PzRd5NO-JSoB6D8coA6L56MhHxVYOyAMJQ86HDDEbGsiCqi58dlAxTure74a2TYzZPswm-RwrtAFGw-BnsZJvpkWuwJmEnPQ.svg',
+    artwork: STATION_IMAGES.kbs1fm,
     description: 'KBS 클래식 FM',
   },
   {
-    name: 'KBS 2FM',
+    name: 'KBS 쿨 FM - FM 89.1',
     streamUrl: 'https://radio.bsod.kr/stream/?stn=kbs&ch=2fm',
     category: CATEGORIES.KBS,
     artist: 'KBS',
-    artwork: 'https://i.namu.wiki/i/19oZM0-Bjmpkg3Fz1T2iP64XdzL_5dNDGSERVdaIkCmtuvxkQ0z-2cSl3R0FORaH2QJjHnyx79IJzKLAUMo8RPpnENEghZu18jMT3icY87frbdsNvnKj7VLqi93hdcwNote7WKSF5AYdA2frHMfjKA.svg',
+    artwork: STATION_IMAGES.kbs2fm,
     description: 'KBS 쿨FM - 음악이 있는 오후',
   },
   {
@@ -83,24 +84,24 @@ const STATION_CONFIGS: StationConfig[] = [
     streamUrl: 'https://radio.bsod.kr/stream/?stn=kbs&ch=hanminjok',
     category: CATEGORIES.KBS,
     artist: 'KBS',
-    artwork: 'https://via.placeholder.com/300x300/FF0000/FFFFFF?text=KBS+한민족',
+    artwork: STATION_IMAGES.kbs,
   },
 
   // ===== MBC =====
   {
-    name: 'MBC 표준FM',
+    name: 'MBC 표준FM - FM 95.9',
     streamUrl: 'https://radio.bsod.kr/stream/?stn=mbc&ch=sfm',
     category: CATEGORIES.MBC,
     artist: 'MBC',
-    artwork: 'https://i.namu.wiki/i/_uQ5xckB_HtSAsVMXSbP8hdeTtSZ_hMKRd7XTHoLmxll_aTcv5PnOVY_eMskyqaZn2wCt2hDZFJGylnAx7F9r5u_xM4Eohd-ovKgN31m1ZxSw-XkBirhl5p8N54-9Js_rORjljax5_wsV6fnUiE3uQ.svg',
+    artwork: STATION_IMAGES.mbc1,
     description: 'MBC 표준FM',
   },
   {
-    name: 'MBC FM4U',
+    name: 'MBC FM4U - FM 91.9',
     streamUrl: 'https://radio.bsod.kr/stream/?stn=mbc&ch=fm4u',
     category: CATEGORIES.MBC,
     artist: 'MBC',
-    artwork: 'https://static.wikia.nocookie.net/logopedia/images/d/d3/MBC_FM4U.png/revision/latest?cb=20240131230916',
+    artwork: STATION_IMAGES.mbcFm4u,
     description: 'MBC FM4U',
   },
   {
@@ -108,24 +109,24 @@ const STATION_CONFIGS: StationConfig[] = [
     streamUrl: 'https://radio.bsod.kr/stream/?stn=mbc&ch=chm',
     category: CATEGORIES.MBC,
     artist: 'MBC',
-    artwork: 'https://via.placeholder.com/300x300/FF6699/FFFFFF?text=MBC+mini',
+    artwork: STATION_IMAGES.mbcAtm,
   },
 
   // ===== SBS =====
   {
-    name: 'SBS 러브FM',
+    name: 'SBS 러브FM - FM 103.5',
     streamUrl: 'https://radio.bsod.kr/stream/?stn=sbs&ch=lovefm',
     category: CATEGORIES.SBS,
     artist: 'SBS',
-    artwork: 'https://i.namu.wiki/i/ThpKeUSylL4IpQPHy9imV3RS9YidEME5RhDCMiSy1ZOlqAn9YW8N2himtwik2e2MXniSIt-axI2SjCkCi-71OQHJON1uwgqZFpOYulE-jlQAENbjt1_s0WJ5frtVW6gz0MX-qrR-LrpclChl4ATIrQ.svg',
+    artwork: STATION_IMAGES.sbsLovefm,
     description: 'SBS 러브FM',
   },
   {
-    name: 'SBS 파워FM',
+    name: 'SBS 파워FM - FM 107.7',
     streamUrl: 'https://radio.bsod.kr/stream/?stn=sbs&ch=powerfm',
     category: CATEGORIES.SBS,
     artist: 'SBS',
-    artwork: 'https://i.namu.wiki/i/5LNCFZoW6DwJRn6s4AeOlBenuDohDV8gmgoKbxip7Q6SCpWvWZ0p0Ne0gnC6XacD06-F__i_Se588oWiseswlCdW-lxQGDP_DNu5aKJXbdNb9LrVqsa70iVBhsXGla6uq2GHK_8n4QOy5BZmM_0ZpQ.svg',
+    artwork: STATION_IMAGES.sbsPowerfm,
     description: 'SBS 파워FM',
   },
   {
@@ -266,55 +267,55 @@ const STATION_CONFIGS: StationConfig[] = [
   },
 
   // ===== 커뮤니티 FM =====
-  {
-    name: '관악FM',
-    streamUrl: 'https://radio.bsod.kr/stream/?stn=community&ch=gwanakfm',
-    category: CATEGORIES.COMMUNITY,
-    artist: '관악FM',
-    artwork: 'https://via.placeholder.com/300x300/669999/FFFFFF?text=관악FM',
-  },
-  {
-    name: '마포FM',
-    streamUrl: 'https://radio.bsod.kr/stream/?stn=community&ch=mapofm',
-    category: CATEGORIES.COMMUNITY,
-    artist: '마포FM',
-    artwork: 'https://via.placeholder.com/300x300/996699/FFFFFF?text=마포FM',
-  },
-  {
-    name: '성남FM',
-    streamUrl: 'https://radio.bsod.kr/stream/?stn=community&ch=seongnamfm',
-    category: CATEGORIES.COMMUNITY,
-    artist: '성남FM',
-    artwork: 'https://via.placeholder.com/300x300/669966/FFFFFF?text=성남FM',
-  },
-  {
-    name: '서대문FM',
-    streamUrl: 'https://radio.bsod.kr/stream/?stn=community&ch=sdmfm',
-    category: CATEGORIES.COMMUNITY,
-    artist: '서대문FM',
-    artwork: 'https://via.placeholder.com/300x300/999966/FFFFFF?text=서대문FM',
-  },
-  {
-    name: '수원FM',
-    streamUrl: 'https://radio.bsod.kr/stream/?stn=community&ch=sonefm',
-    category: CATEGORIES.COMMUNITY,
-    artist: '수원FM',
-    artwork: 'https://via.placeholder.com/300x300/996666/FFFFFF?text=수원FM',
-  },
-  {
-    name: 'GO구리FM',
-    streamUrl: 'https://radio.bsod.kr/stream/?stn=community&ch=gurifm',
-    category: CATEGORIES.COMMUNITY,
-    artist: 'GO구리FM',
-    artwork: 'https://via.placeholder.com/300x300/666699/FFFFFF?text=구리FM',
-  },
-  {
-    name: '단원FM',
-    streamUrl: 'https://radio.bsod.kr/stream/?stn=community&ch=dwfm',
-    category: CATEGORIES.COMMUNITY,
-    artist: '단원FM',
-    artwork: 'https://via.placeholder.com/300x300/669966/FFFFFF?text=단원FM',
-  },
+  // {
+  //   name: '관악FM',
+  //   streamUrl: 'https://radio.bsod.kr/stream/?stn=community&ch=gwanakfm',
+  //   category: CATEGORIES.COMMUNITY,
+  //   artist: '관악FM',
+  //   artwork: 'https://via.placeholder.com/300x300/669999/FFFFFF?text=관악FM',
+  // },
+  // {
+  //   name: '마포FM',
+  //   streamUrl: 'https://radio.bsod.kr/stream/?stn=community&ch=mapofm',
+  //   category: CATEGORIES.COMMUNITY,
+  //   artist: '마포FM',
+  //   artwork: 'https://via.placeholder.com/300x300/996699/FFFFFF?text=마포FM',
+  // },
+  // {
+  //   name: '성남FM',
+  //   streamUrl: 'https://radio.bsod.kr/stream/?stn=community&ch=seongnamfm',
+  //   category: CATEGORIES.COMMUNITY,
+  //   artist: '성남FM',
+  //   artwork: 'https://via.placeholder.com/300x300/669966/FFFFFF?text=성남FM',
+  // },
+  // {
+  //   name: '서대문FM',
+  //   streamUrl: 'https://radio.bsod.kr/stream/?stn=community&ch=sdmfm',
+  //   category: CATEGORIES.COMMUNITY,
+  //   artist: '서대문FM',
+  //   artwork: 'https://via.placeholder.com/300x300/999966/FFFFFF?text=서대문FM',
+  // },
+  // {
+  //   name: '수원FM',
+  //   streamUrl: 'https://radio.bsod.kr/stream/?stn=community&ch=sonefm',
+  //   category: CATEGORIES.COMMUNITY,
+  //   artist: '수원FM',
+  //   artwork: 'https://via.placeholder.com/300x300/996666/FFFFFF?text=수원FM',
+  // },
+  // {
+  //   name: 'GO구리FM',
+  //   streamUrl: 'https://radio.bsod.kr/stream/?stn=community&ch=gurifm',
+  //   category: CATEGORIES.COMMUNITY,
+  //   artist: 'GO구리FM',
+  //   artwork: 'https://via.placeholder.com/300x300/666699/FFFFFF?text=구리FM',
+  // },
+  // {
+  //   name: '단원FM',
+  //   streamUrl: 'https://radio.bsod.kr/stream/?stn=community&ch=dwfm',
+  //   category: CATEGORIES.COMMUNITY,
+  //   artist: '단원FM',
+  //   artwork: 'https://via.placeholder.com/300x300/669966/FFFFFF?text=단원FM',
+  // },
 ];
 
 /**

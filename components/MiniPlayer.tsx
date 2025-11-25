@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Animated, ActivityIndicator } from "react-native";
+import { View, Text, TouchableOpacity, Animated, ActivityIndicator, Image } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { useAudio } from "@/contexts/AudioContext";
@@ -52,8 +52,16 @@ export default function MiniPlayer() {
           activeOpacity={0.7}
         >
           {/* 앨범 커버 */}
-          <View className="w-12 h-12 bg-emerald-600 rounded items-center justify-center mr-3">
-            <Ionicons name="radio" size={24} color="white" />
+          <View className="w-12 h-12 bg-zinc-800 rounded items-center justify-center mr-3 overflow-hidden">
+            {currentStation.artwork ? (
+              <Image
+                source={typeof currentStation.artwork === 'number' ? currentStation.artwork : { uri: currentStation.artwork }}
+                className="w-full h-full"
+                resizeMode="cover"
+              />
+            ) : (
+              <Ionicons name="radio" size={24} color="white" />
+            )}
           </View>
 
           {/* 방송국 정보 */}
