@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, ActivityIndicator, Image } from "react-native";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, memo } from "react";
 import DraggableFlatList, { RenderItemParams, ScaleDecorator } from "react-native-draggable-flatlist";
 import { useFavorites } from "@/contexts/FavoritesContext";
 import { useAudio } from "@/contexts/AudioContext";
@@ -20,6 +20,8 @@ export default function LibraryScreen() {
   const [menuVisible, setMenuVisible] = useState(false);
   const [selectedStation, setSelectedStation] = useState<RadioStation | null>(null);
   const [data, setData] = useState<RadioStation[]>([]);
+  const dataRef = useRef<RadioStation[]>(data);
+  useEffect(() => { dataRef.current = data; }, [data]);
   const isDraggingRef = useRef(false);
 
   // 즐겨찾기 순서 적용
@@ -66,8 +68,8 @@ export default function LibraryScreen() {
       setPlaylist(newData);
     }
 
-    // 순서 저장
-    updateStationOrder(newData);
+    // 순서 저장 - 렌더링 차단을 막기 위해 저장을 다음 이벤트 루프로 연기
+    setTimeout(() => updateStationOrder(newData), 0);
 
     isDraggingRef.current = false;
   }, [currentStation, setPlaylist, updateStationOrder]);
@@ -76,13 +78,13 @@ export default function LibraryScreen() {
     <ScaleDecorator>
       <StationCard
         station={item}
-        playlist={data}
+        onSetPlaylist={() => setPlaylist(dataRef.current)}
         onLongPress={handleLongPress}
         drag={drag}
         isActive={isActive}
       />
     </ScaleDecorator>
-  ), [data, handleLongPress]);
+  ), [handleLongPress]);
 
   if (favorites.length === 0) {
     return (
@@ -141,20 +143,20 @@ export default function LibraryScreen() {
 }
 
 // 방송국 카드 컴포넌트
-function StationCard({
+const StationCard = memo(function StationCard({
   station,
-  playlist,
+  onSetPlaylist,
   onLongPress,
   drag,
   isActive,
 }: {
   station: RadioStation;
-  playlist: RadioStation[];
+  onSetPlaylist?: () => void;
   onLongPress: (station: RadioStation) => void;
   drag?: () => void;
   isActive?: boolean;
 }) {
-  const { togglePlayPause, currentStation, playbackState, setPlaylist } = useAudio();
+  const { togglePlayPause, currentStation, playbackState } = useAudio();
   const { isFavorite, toggleFavorite } = useFavorites();
   const isCurrentStation = currentStation?.id === station.id;
   const isLoading = isCurrentStation && playbackState === PlaybackState.LOADING;
@@ -164,9 +166,7 @@ function StationCard({
   const favorite = isFavorite(station.id);
 
   const handlePress = () => {
-    // 플레이리스트 설정 (즐겨찾기)
-    console.log("📚 즐겨찾기 플레이리스트 설정:", playlist.map(s => s.name));
-    setPlaylist(playlist);
+    onSetPlaylist && onSetPlaylist();
     togglePlayPause(station);
   };
 
@@ -261,4 +261,4 @@ function StationCard({
       </TouchableOpacity>
     </View>
   );
-}
+});

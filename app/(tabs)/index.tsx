@@ -18,13 +18,15 @@ const THUMBNAIL_SIZE = 64; // 썸네일 크기
 
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
-  const { currentStation, setPlaylist, togglePlayPause } = useAudio();
+  const { currentStation, setPlaylist, togglePlayPause, playbackState } = useAudio();
   const { isFavorite, toggleFavorite } = useFavorites();
   const { getOrderedStations, updateStationOrder } = useStationOrder();
   const [selectedCategory, setSelectedCategory] = useState<string>("전체");
   const [menuVisible, setMenuVisible] = useState(false);
   const [selectedStation, setSelectedStation] = useState<RadioStation | null>(null);
   const [data, setData] = useState<RadioStation[]>([]);
+  const dataRef = useRef<RadioStation[]>(data);
+  useEffect(() => { dataRef.current = data; }, [data]);
   const isDraggingRef = useRef(false);
   const categories = ["전체", ...getAllCategories()];
 
@@ -76,8 +78,8 @@ export default function HomeScreen() {
       setPlaylist(newData);
     }
 
-    // 순서 저장
-    updateStationOrder(newData);
+    // 순서 저장 - 저장을 즉시 실행하지 않고 다음 이벤트 루프로 연기하여 렌더링/애니메이션 차단 방지
+    setTimeout(() => updateStationOrder(newData), 0);
 
     isDraggingRef.current = false;
   }, [currentStation, setPlaylist, updateStationOrder]);
@@ -86,13 +88,18 @@ export default function HomeScreen() {
     <ScaleDecorator>
       <StationCard
         station={item}
-        playlist={data}
+        onSetPlaylist={() => setPlaylist(dataRef.current)}
         onLongPress={handleLongPress}
         drag={drag}
         isActive={isActive}
+        isCurrentStation={currentStation?.id === item.id}
+        playbackState={playbackState}
+        favorite={isFavorite(item.id)}
+        toggleFavorite={toggleFavorite}
+        togglePlayPause={togglePlayPause}
       />
     </ScaleDecorator>
-  ), [data, handleLongPress]);
+  ), [handleLongPress, currentStation, playbackState, isFavorite, toggleFavorite, togglePlayPause]);
 
   return (
     <SafeAreaView className="flex-1 bg-black">
@@ -163,41 +170,37 @@ export default function HomeScreen() {
 }
 
 // 방송국 카드 컴포넌트
-function StationCard({
+const StationCard = memo(function StationCard({
   station,
-  playlist,
+  onSetPlaylist,
   onLongPress,
   drag,
   isActive,
+  isCurrentStation,
+  playbackState,
+  favorite,
+  toggleFavorite,
+  togglePlayPause,
 }: {
   station: RadioStation;
-  playlist: RadioStation[];
+  onSetPlaylist?: () => void;
   onLongPress: (station: RadioStation) => void;
   drag?: () => void;
   isActive?: boolean;
+  isCurrentStation?: boolean;
+  playbackState?: PlaybackState;
+  favorite?: boolean;
+  toggleFavorite?: (s: RadioStation) => any;
+  togglePlayPause?: (s: RadioStation) => Promise<void> | void;
 }) {
-  const { togglePlayPause, currentStation, playbackState, setPlaylist } = useAudio();
-  const { isFavorite, toggleFavorite } = useFavorites();
-  const isCurrentStation = currentStation?.id === station.id;
   const isLoading = isCurrentStation && playbackState === PlaybackState.LOADING;
   const isPlaying = isCurrentStation && playbackState === PlaybackState.PLAYING;
   const isPaused = isCurrentStation && playbackState === PlaybackState.PAUSED;
   const isError = isCurrentStation && playbackState === PlaybackState.ERROR;
-  const favorite = isFavorite(station.id);
 
   const handlePress = async () => {
-    console.log("🎯 StationCard 클릭!");
-    console.log("  - 클릭한 방송국:", station.name);
-    console.log("  - 현재 재생 중:", currentStation?.name);
-    console.log("  - 재생 상태:", playbackState);
-
-    // 플레이리스트 설정
-    console.log("🏠 홈 플레이리스트 설정:", playlist.map(s => s.name));
-    setPlaylist(playlist);
-
-    console.log("▶️ togglePlayPause 호출 시작");
-    await togglePlayPause(station);
-    console.log("✅ togglePlayPause 호출 완료");
+    onSetPlaylist && onSetPlaylist();
+    await (togglePlayPause ? togglePlayPause(station) : Promise.resolve());
   };
 
   return (
@@ -291,4 +294,4 @@ function StationCard({
       </TouchableOpacity>
     </View>
   );
-}
+})
