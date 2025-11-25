@@ -1,6 +1,9 @@
 import TrackPlayer, { Event } from 'react-native-track-player';
 
 export async function PlaybackService() {
+  // 기본 재생 컨트롤만 처리 (Play/Pause/Stop)
+  // Next/Previous는 AudioContext에서 처리
+
   TrackPlayer.addEventListener(Event.RemotePlay, () => {
     console.log('[PlaybackService] Remote Play');
     TrackPlayer.play();
@@ -11,18 +14,11 @@ export async function PlaybackService() {
     TrackPlayer.pause();
   });
 
-  TrackPlayer.addEventListener(Event.RemoteNext, () => {
-    console.log('[PlaybackService] Remote Next');
-    TrackPlayer.skipToNext();
-  });
-
-  TrackPlayer.addEventListener(Event.RemotePrevious, () => {
-    console.log('[PlaybackService] Remote Previous');
-    TrackPlayer.skipToPrevious();
-  });
-
   TrackPlayer.addEventListener(Event.RemoteStop, () => {
     console.log('[PlaybackService] Remote Stop');
     TrackPlayer.stop();
   });
+
+  // RemoteNext/RemotePrevious는 AudioContext에서 처리됨
+  // (playlist 관리가 AudioContext에 있기 때문)
 }

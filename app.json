@@ -13,7 +13,10 @@
             "newArchEnabled": false,
             "usesIcloudStorage": false,
             "infoPlist": {
-              "UIBackgroundModes": ["audio", "remote-notification"],
+              "UIBackgroundModes": [
+                "audio",
+                "remote-notification"
+              ],
               "UIStatusBarStyle": "UIStatusBarStyleLightContent",
               "UIViewControllerBasedStatusBarAppearance": false
             }
@@ -54,6 +57,14 @@
     },
     "web": {
       "bundler": "metro"
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "c3d39c5f-baaa-46d0-b300-e8bc0ccba0ab"
+      }
     }
   }
 }
