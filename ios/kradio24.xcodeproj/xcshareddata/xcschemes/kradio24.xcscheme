@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "kradio24.app"
-               BlueprintName = "kradio24"
-               ReferencedContainer = "container:kradio24.xcodeproj">
+               BuildableName = "KRadio24.app"
+               BlueprintName = "KRadio24"
+               ReferencedContainer = "container:KRadio24.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "kradio24Tests.xctest"
-               BlueprintName = "kradio24Tests"
-               ReferencedContainer = "container:kradio24.xcodeproj">
+               BuildableName = "KRadio24Tests.xctest"
+               BlueprintName = "KRadio24Tests"
+               ReferencedContainer = "container:KRadio24.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "kradio24.app"
-            BlueprintName = "kradio24"
-            ReferencedContainer = "container:kradio24.xcodeproj">
+            BuildableName = "KRadio24.app"
+            BlueprintName = "KRadio24"
+            ReferencedContainer = "container:KRadio24.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "kradio24.app"
-            BlueprintName = "kradio24"
-            ReferencedContainer = "container:kradio24.xcodeproj">
+            BuildableName = "KRadio24.app"
+            BlueprintName = "KRadio24"
+            ReferencedContainer = "container:KRadio24.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

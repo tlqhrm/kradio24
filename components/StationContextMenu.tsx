@@ -34,18 +34,18 @@ export default function StationContextMenu({
         onPress={onClose}
       >
         {/* 메뉴 컨테이너 */}
-        <Pressable className="bg-zinc-900 rounded-t-3xl" onPress={(e) => e.stopPropagation()}>
+        <Pressable className="bg-zinc-800 rounded-t-3xl" onPress={(e) => e.stopPropagation()}>
           {/* 핸들 */}
           <View className="items-center py-3">
-            <View className="w-10 h-1 bg-zinc-700 rounded-full" />
+            <View className="w-10 h-1 bg-zinc-600 rounded-full" />
           </View>
 
           {/* 방송국 정보 */}
-          <View className="px-6 py-4 border-b border-zinc-800">
+          <View className="px-6 py-4 border-b border-zinc-700">
             <Text className="text-white text-lg font-bold" numberOfLines={1}>
               {station.name}
             </Text>
-            <Text className="text-zinc-400 text-sm mt-1">
+            <Text className="text-zinc-300 text-sm mt-1">
               {station.category}
               {station.genre && ` • ${station.genre}`}
             </Text>
@@ -55,7 +55,7 @@ export default function StationContextMenu({
           <View className="py-2">
             {/* 재생 */}
             <TouchableOpacity
-              className="flex-row items-center px-6 py-4 active:bg-zinc-800"
+              className="flex-row items-center px-6 py-4 active:bg-zinc-700"
               onPress={() => {
                 onPlay();
                 onClose();
@@ -67,7 +67,7 @@ export default function StationContextMenu({
 
             {/* 즐겨찾기 추가/제거 */}
             <TouchableOpacity
-              className="flex-row items-center px-6 py-4 active:bg-zinc-800"
+              className="flex-row items-center px-6 py-4 active:bg-zinc-700"
               onPress={() => {
                 onToggleFavorite();
                 onClose();

@@ -42,7 +42,7 @@ export default function MiniPlayer() {
         transform: [{ translateY: slideAnim }],
         bottom: tabBarHeight,
       }}
-      className="absolute left-0 right-0 bg-zinc-900 border-t border-zinc-800"
+      className="absolute left-0 right-0 bg-zinc-800 border-t border-zinc-700"
     >
       <View className="flex-row items-center px-4 py-3">
         {/* 앨범 커버 + 방송국 정보 (클릭 시 전체 화면) */}
@@ -52,7 +52,7 @@ export default function MiniPlayer() {
           activeOpacity={0.7}
         >
           {/* 앨범 커버 */}
-          <View className="w-12 h-12 bg-zinc-800 rounded items-center justify-center mr-3 overflow-hidden">
+          <View className="w-12 h-12 bg-zinc-700 rounded items-center justify-center mr-3 overflow-hidden">
             {currentStation.artwork ? (
               <Image
                 source={typeof currentStation.artwork === 'number' ? currentStation.artwork : { uri: currentStation.artwork }}
@@ -69,7 +69,7 @@ export default function MiniPlayer() {
             <Text className="text-white font-semibold" numberOfLines={1}>
               {currentStation.name}
             </Text>
-            <Text className="text-zinc-400 text-xs" numberOfLines={1}>
+            <Text className="text-zinc-300 text-xs" numberOfLines={1}>
               {playbackState === PlaybackState.LOADING
                 ? "로딩 중..."
                 : playbackState === PlaybackState.PLAYING

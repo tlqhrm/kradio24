@@ -8,6 +8,7 @@ import { useFavorites } from "@/contexts/FavoritesContext";
 import { useStationOrder } from "@/contexts/StationOrderContext";
 import StationContextMenu from "@/components/StationContextMenu";
 import DraggableStationList from "@/components/DraggableStationList";
+import { APP_NAME } from "@/constants/i18n";
 
 const CATEGORY_TAB_WIDTH = 88; // 고정 너비
 const CATEGORY_TAB_HEIGHT = 36; // 고정 높이
@@ -62,24 +63,32 @@ export default function HomeScreen() {
     setPlaylist(dataRef.current);
   }, [setPlaylist]);
 
+
   const handleDragEnd = useCallback((newData: RadioStation[]) => {
-    setData(newData);
+    console.log('🟠 index.handleDragEnd 시작');
+    // setData 제거 → 리렌더링 방지 → 깜빡임 제거
     dataRef.current = newData;
 
     // 플레이리스트 업데이트
     if (currentStation) {
+      console.log('🟡 setPlaylist 호출');
       setPlaylist(newData);
     }
 
-    // 순서 저장
+    // 순서 저장 → 다음 카테고리 변경 시 getOrderedStations가 반영
+    console.log('🔴 updateStationOrder 호출');
     updateStationOrder(newData, true);
+
+    console.log('🟣 setData 호출');
+    setData(newData);
+    console.log('⚫ index.handleDragEnd 완료');
   }, [currentStation, setPlaylist, updateStationOrder]);
 
   return (
-    <SafeAreaView className="flex-1 bg-black">
+    <SafeAreaView className="flex-1 bg-zinc-950">
       {/* 헤더 */}
       <View className="px-5 py-4">
-        <Text className="text-3xl font-bold text-white">KRadio24</Text>
+        <Text className="text-3xl font-bold text-white">{APP_NAME}</Text>
       </View>
 
       {/* 카테고리 탭 */}
@@ -99,14 +108,14 @@ export default function HomeScreen() {
                 className={`rounded-lg items-center justify-center ${
                   selectedCategory === category
                     ? "bg-emerald-500"
-                    : "bg-zinc-800/50"
+                    : "bg-zinc-700/60"
                 }`}
               >
                 <Text
                   className={`font-medium text-sm ${
                     selectedCategory === category
                       ? "text-white"
-                      : "text-zinc-400"
+                      : "text-zinc-300"
                   }`}
                   numberOfLines={1}
                   ellipsizeMode="tail"
@@ -127,7 +136,6 @@ export default function HomeScreen() {
         currentStation={currentStation}
         playbackState={playbackState}
         onSetPlaylist={handleSetPlaylist}
-        onLongPress={handleLongPress}
         isFavorite={isFavorite}
         toggleFavorite={toggleFavorite}
         togglePlayPause={togglePlayPause}

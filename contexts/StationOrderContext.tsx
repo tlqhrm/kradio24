@@ -68,7 +68,7 @@ export function StationOrderProvider({ children }: { children: React.ReactNode }
 
       // silent 모드가 아닐 때만 상태 업데이트 (드래그 시에는 불필요한 리렌더링 방지)
       if (!silent) {
-        setStationOrder(newOrder);
+        // setStationOrder(newOrder);
       }
 
       await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(newOrder));

@@ -8,6 +8,7 @@ import { RadioStation } from "@/types/radio";
 import { Ionicons } from "@expo/vector-icons";
 import StationContextMenu from "@/components/StationContextMenu";
 import DraggableStationList from "@/components/DraggableStationList";
+import { APP_NAME } from "@/constants/i18n";
 
 export default function LibraryScreen() {
   const insets = useSafeAreaInsets();
@@ -54,7 +55,6 @@ export default function LibraryScreen() {
   }, [setPlaylist]);
 
   const handleDragEnd = useCallback((newData: RadioStation[]) => {
-    setData(newData);
     dataRef.current = newData;
 
     // 플레이리스트 업데이트
@@ -64,11 +64,13 @@ export default function LibraryScreen() {
 
     // 순서 저장
     updateStationOrder(newData, true);
+
+    setData(newData);
   }, [currentStation, setPlaylist, updateStationOrder]);
 
   if (favorites.length === 0) {
     return (
-      <SafeAreaView className="flex-1 bg-black">
+      <SafeAreaView className="flex-1 bg-zinc-950">
         {/* 헤더 */}
         <View className="px-5 py-4">
           <Text className="text-3xl font-bold text-white">즐겨찾기</Text>
@@ -80,7 +82,7 @@ export default function LibraryScreen() {
           <Text className="text-white text-xl font-semibold mb-2">
             즐겨찾기가 비어있습니다
           </Text>
-          <Text className="text-zinc-400 text-center">
+          <Text className="text-zinc-300 text-center">
             좋아하는 방송국을 추가해보세요
           </Text>
         </View>
@@ -89,11 +91,11 @@ export default function LibraryScreen() {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-black">
+    <SafeAreaView className="flex-1 bg-zinc-950">
       {/* 헤더 */}
       <View className="px-5 py-4">
         <Text className="text-3xl font-bold text-white">즐겨찾기</Text>
-        <Text className="text-zinc-400 text-sm mt-1">
+        <Text className="text-zinc-300 text-sm mt-1">
           {favorites.length}개의 방송국
         </Text>
       </View>
@@ -106,7 +108,6 @@ export default function LibraryScreen() {
         currentStation={currentStation}
         playbackState={playbackState}
         onSetPlaylist={handleSetPlaylist}
-        onLongPress={handleLongPress}
         isFavorite={isFavorite}
         toggleFavorite={toggleFavorite}
         togglePlayPause={togglePlayPause}

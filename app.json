@@ -23,10 +23,25 @@
           }
         }
       ],
-      "expo-asset"
+      "expo-asset",
+      "expo-localization"
     ],
-    "name": "kradio24",
+    "name": "KRadio24",
     "slug": "kradio24",
+    "icon": "./assets/images/logo.png",
+    "splash": {
+      "image": "./assets/images/logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000000"
+    },
+    "locales": {
+      "ko": {
+        "name": "한국라디오24"
+      },
+      "en": {
+        "name": "KRadio24"
+      }
+    },
     "userInterfaceStyle": "automatic",
     "android": {
       "permissions": [
@@ -42,11 +57,16 @@
         "backgroundColor": "#000000",
         "barStyle": "light-content"
       },
-      "package": "com.kradio24.app"
+      "package": "com.kradio24.app",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/logo.png",
+        "backgroundColor": "#000000"
+      }
     },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.kradio24.app",
+      "icon": "./assets/images/logo.png",
       "infoPlist": {
         "UIBackgroundModes": [
           "audio"

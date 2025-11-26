@@ -34,7 +34,7 @@ install! 'cocoapods',
 
 prepare_react_native_project!
 
-target 'kradio24' do
+target 'KRadio24' do
   use_expo_modules!
   config = use_native_modules!
 

@@ -44,7 +44,7 @@ if (getRNMinorVersion() >= 75) {
   }
 }
 
-rootProject.name = 'kradio24'
+rootProject.name = 'KRadio24'
 
 dependencyResolutionManagement {
   versionCatalogs {
