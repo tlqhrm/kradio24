@@ -1,7 +1,7 @@
 import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, Image } from "react-native";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { useState, useEffect, useRef, useCallback, memo } from "react";
-import DraggableFlatList, { RenderItemParams, ScaleDecorator } from "react-native-draggable-flatlist";
+import DraggableFlatList, { RenderItemParams } from "react-native-draggable-flatlist";
 import { STATIONS, getAllCategories } from "@/data/stations";
 import { RadioStation } from "@/types/radio";
 import { useAudio } from "@/contexts/AudioContext";
@@ -15,6 +15,7 @@ import StationContextMenu from "@/components/StationContextMenu";
 const CATEGORY_TAB_WIDTH = 88; // 고정 너비
 const CATEGORY_TAB_HEIGHT = 36; // 고정 높이
 const THUMBNAIL_SIZE = 64; // 썸네일 크기
+const ITEM_HEIGHT = 64 + 8; // 카드 높이 + 간격
 
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
@@ -40,7 +41,7 @@ export default function HomeScreen() {
 
     const ordered = getOrderedStations(filtered);
     setData(ordered);
-  }, [selectedCategory]); // getOrderedStations 제거 - 저장 시 리렌더링 방지
+  }, [selectedCategory, getOrderedStations]);
 
   // 하단 여백 계산
   const tabBarHeight = 60 + insets.bottom;
@@ -65,41 +66,49 @@ export default function HomeScreen() {
     }
   }, [selectedStation, toggleFavorite]);
 
+  const handleSetPlaylist = useCallback(() => {
+    setPlaylist(dataRef.current);
+  }, [setPlaylist]);
+
   const handleDragBegin = useCallback(() => {
     isDraggingRef.current = true;
   }, []);
 
   const handleDragEnd = useCallback(({ data: newData }: { data: RadioStation[] }) => {
-    // 라이브러리 공식 패턴: 애니메이션 완료 후 호출됨
+    // 공식 권장 패턴: 즉시 setData 호출 (애니메이션 완료 후 호출됨)
     setData(newData);
+    dataRef.current = newData;
+    isDraggingRef.current = false;
 
     // 플레이리스트 업데이트
     if (currentStation) {
       setPlaylist(newData);
     }
 
-    // 순서 저장 - 저장을 즉시 실행하지 않고 다음 이벤트 루프로 연기하여 렌더링/애니메이션 차단 방지
-    setTimeout(() => updateStationOrder(newData), 0);
-
-    isDraggingRef.current = false;
+    // 순서 저장
+    updateStationOrder(newData, true);
   }, [currentStation, setPlaylist, updateStationOrder]);
 
   const renderItem = useCallback(({ item, drag, isActive }: RenderItemParams<RadioStation>) => (
-    <ScaleDecorator>
-      <StationCard
-        station={item}
-        onSetPlaylist={() => setPlaylist(dataRef.current)}
-        onLongPress={handleLongPress}
-        drag={drag}
-        isActive={isActive}
-        isCurrentStation={currentStation?.id === item.id}
-        playbackState={playbackState}
-        favorite={isFavorite(item.id)}
-        toggleFavorite={toggleFavorite}
-        togglePlayPause={togglePlayPause}
-      />
-    </ScaleDecorator>
-  ), [handleLongPress, currentStation, playbackState, isFavorite, toggleFavorite, togglePlayPause]);
+    <StationCard
+      station={item}
+      onSetPlaylist={handleSetPlaylist}
+      onLongPress={handleLongPress}
+      drag={drag}
+      isActive={isActive}
+      isCurrentStation={currentStation?.id === item.id}
+      playbackState={playbackState}
+      favorite={isFavorite(item.id)}
+      toggleFavorite={toggleFavorite}
+      togglePlayPause={togglePlayPause}
+    />
+  ), [handleSetPlaylist, handleLongPress, currentStation, playbackState, isFavorite, toggleFavorite, togglePlayPause]);
+
+  const CellRendererComponent = useCallback(({ children, ...props }: any) => (
+    <View {...props} shouldRasterizeIOS renderToHardwareTextureAndroid>
+      {children}
+    </View>
+  ), []);
 
   return (
     <SafeAreaView className="flex-1 bg-black">
@@ -154,6 +163,17 @@ export default function HomeScreen() {
         onDragBegin={handleDragBegin}
         onDragEnd={handleDragEnd}
         renderItem={renderItem}
+        CellRendererComponent={CellRendererComponent}
+        getItemLayout={(data, index) => ({
+          length: ITEM_HEIGHT,
+          offset: ITEM_HEIGHT * index,
+          index,
+        })}
+        windowSize={10}
+        maxToRenderPerBatch={5}
+        updateCellsBatchingPeriod={30}
+        removeClippedSubviews={true}
+        initialNumToRender={10}
       />
 
       {/* 컨텍스트 메뉴 */}
