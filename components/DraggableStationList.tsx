@@ -194,6 +194,7 @@ export default function DraggableStationList({
 }: DraggableStationListProps) {
   // 내부 state로 data 관리 - 드래그 애니메이션 중 외부 data 변경으로부터 보호
   const [internalData, setInternalData] = useState<RadioStation[]>(data);
+  const [containerHeight, setContainerHeight] = useState<number>(0);
 
   // 외부 data 변경 시 내부 state 동기화 (카테고리 변경 등)
   useEffect(() => {
@@ -268,14 +269,29 @@ export default function DraggableStationList({
     [currentStation, playbackState, isFavorite, togglePlayPause, toggleFavorite]
   );
 
+  // 컨테이너 높이 측정
+  const handleLayout = useCallback((event: any) => {
+    const { height } = event.nativeEvent.layout;
+    setContainerHeight(height);
+  }, []);
+
+
   return (
-    <DragList
-      data={internalData}
-      renderItem={renderItem}
-      keyExtractor={keyExtractor}
-      onReordered={handleReordered}
-      contentContainerStyle={{ paddingTop: 0, paddingBottom: bottomPadding }}
-      showsVerticalScrollIndicator={false}
-    />
+    <View style={{ flex: 1 }} onLayout={handleLayout}>
+      <DragList
+        data={internalData}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        onReordered={handleReordered}
+        contentContainerStyle={{
+          flexGrow: 1,
+          paddingTop: 0,
+          paddingBottom: bottomPadding,
+          minHeight: containerHeight,
+        }}
+        showsVerticalScrollIndicator={false}
+        style={{ backgroundColor: 'transparent' }}
+      />
+    </View>
   );
 }

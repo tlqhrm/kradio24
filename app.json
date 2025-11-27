@@ -47,16 +47,8 @@
       "permissions": [
         "INTERNET",
         "FOREGROUND_SERVICE",
-        "WAKE_LOCK",
-        "INTERNET",
-        "FOREGROUND_SERVICE",
         "WAKE_LOCK"
       ],
-      "usesCleartextTraffic": true,
-      "statusBar": {
-        "backgroundColor": "#000000",
-        "barStyle": "light-content"
-      },
       "package": "com.kradio24.app",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/logo.png",

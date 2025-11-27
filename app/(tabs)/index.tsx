@@ -36,10 +36,10 @@ export default function HomeScreen() {
     setData(ordered);
   }, [selectedCategory, getOrderedStations]);
 
-  // 하단 여백 계산
+  // 하단 여백 계산 - 탭바와 분리된 느낌
   const tabBarHeight = 60 + insets.bottom;
   const miniPlayerHeight = currentStation ? 64 : 0;
-  const bottomPadding = tabBarHeight + miniPlayerHeight + 16;
+  const bottomPadding = tabBarHeight + miniPlayerHeight + 32; // 16 → 32로 증가
 
   const handleLongPress = useCallback((station: RadioStation) => {
     setSelectedStation(station);
@@ -85,7 +85,7 @@ export default function HomeScreen() {
   }, [currentStation, setPlaylist, updateStationOrder]);
 
   return (
-    <SafeAreaView className="flex-1 bg-zinc-950">
+    <SafeAreaView className="flex-1 bg-zinc-950 ">
       {/* 헤더 */}
       <View className="px-5 py-4">
         <Text className="text-3xl font-bold text-white">{APP_NAME}</Text>
@@ -129,17 +129,19 @@ export default function HomeScreen() {
       </View>
 
       {/* 방송국 리스트 */}
-      <DraggableStationList
-        data={data}
-        onDragEnd={handleDragEnd}
-        bottomPadding={bottomPadding}
-        currentStation={currentStation}
-        playbackState={playbackState}
-        onSetPlaylist={handleSetPlaylist}
-        isFavorite={isFavorite}
-        toggleFavorite={toggleFavorite}
-        togglePlayPause={togglePlayPause}
-      />
+      <View style={{ flex: 1, marginBottom: tabBarHeight + miniPlayerHeight }}>
+        <DraggableStationList
+          data={data}
+          onDragEnd={handleDragEnd}
+          bottomPadding={32}
+          currentStation={currentStation}
+          playbackState={playbackState}
+          onSetPlaylist={handleSetPlaylist}
+          isFavorite={isFavorite}
+          toggleFavorite={toggleFavorite}
+          togglePlayPause={togglePlayPause}
+        />
+      </View>
 
       {/* 컨텍스트 메뉴 */}
       <StationContextMenu
