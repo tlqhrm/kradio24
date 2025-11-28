@@ -1,6 +1,6 @@
 {
   "expo": {
-    "scheme": "acme",
+    "scheme": "com.kradio24.app",
     "plugins": [
       "expo-router",
       [

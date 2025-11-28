@@ -1,10 +1,12 @@
 import "../global.css";
-import { Stack } from "expo-router";
+import {router, Stack, useRouter, useSegments} from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { AudioProvider } from "@/contexts/AudioContext";
 import { FavoritesProvider } from "@/contexts/FavoritesContext";
 import { StationOrderProvider } from "@/contexts/StationOrderContext";
+import {useEffect} from "react";
+import {AppState, Linking} from "react-native";
 
 export default function RootLayout() {
   return (

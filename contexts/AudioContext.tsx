@@ -9,8 +9,9 @@ import TrackPlayer, {
 } from "react-native-track-player";
 import { RadioStation } from "@/types/radio";
 import { PlaybackState } from "@/types/radio";
-import { useRouter } from "expo-router";
-import { AppState } from "react-native";
+import {router, useRouter} from "expo-router";
+import { AppState, Platform, ToastAndroid, Alert } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface AudioContextType {
   currentStation: RadioStation | null;
@@ -39,16 +40,107 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const [playlist, setPlaylist] = useState<RadioStation[]>([]);
   const [isPlayerReady, setIsPlayerReady] = useState(false);
 
+  // playlist 변경 로그
+  useEffect(() => {
+    console.log('🎵 AudioContext - playlist 업데이트됨, 크기:', playlist.length);
+  }, [playlist]);
+
   // ============================================
   // Refs: 이벤트 리스너와 동기화
   // ============================================
   const currentStationRef = useRef<RadioStation | null>(null);
+  const playlistRef = useRef<RadioStation[]>([]); // 플레이리스트 Ref
   const isLoadingNewStationRef = useRef(false); // 새 방송국 로딩 중
   const userPausedRef = useRef(false); // 사용자가 명시적으로 일시정지 누름
+  const setupPromiseRef = useRef<Promise<void> | null>(null); // 초기화 Promise
+  const playbackStateRef = useRef<PlaybackState>(PlaybackState.IDLE); // 재생 상태 Ref
+  const retryCountRef = useRef<number>(0); // 재시도 횟수
+  const maxRetries = 0; // 최대 재시도 횟수
 
   const currentIndex = currentStation
     ? playlist.findIndex(s => s.id === currentStation.id)
     : -1;
+
+  // ============================================
+  // 토스트 메시지 표시
+  // ============================================
+  const showToast = (message: string) => {
+    if (Platform.OS === 'android') {
+      ToastAndroid.show(message, ToastAndroid.SHORT);
+    } else {
+      // iOS는 Alert로 간단히 표시
+      Alert.alert('', message, [{ text: '확인' }]);
+    }
+  };
+
+  // ============================================
+  // AsyncStorage: 재생 상태 저장/불러오기
+  // ============================================
+  const STORAGE_KEYS = {
+    CURRENT_STATION: '@audio_current_station',
+    PLAYLIST: '@audio_playlist',
+  };
+
+  // 현재 방송국 저장
+  const saveCurrentStation = async (station: RadioStation | null) => {
+    try {
+      if (station) {
+        await AsyncStorage.setItem(STORAGE_KEYS.CURRENT_STATION, JSON.stringify(station));
+        console.log('💾 [Storage] 현재 방송국 저장:', station.name);
+      } else {
+        await AsyncStorage.removeItem(STORAGE_KEYS.CURRENT_STATION);
+        console.log('💾 [Storage] 현재 방송국 제거');
+      }
+    } catch (error) {
+      console.error('❌ [Storage] 현재 방송국 저장 실패:', error);
+    }
+  };
+
+  // 플레이리스트 저장
+  const savePlaylist = async (stations: RadioStation[]) => {
+    try {
+      await AsyncStorage.setItem(STORAGE_KEYS.PLAYLIST, JSON.stringify(stations));
+      console.log('💾 [Storage] 플레이리스트 저장, 크기:', stations.length);
+    } catch (error) {
+      console.error('❌ [Storage] 플레이리스트 저장 실패:', error);
+    }
+  };
+
+  // 저장된 재생 상태 불러오기
+  const loadPlaybackState = async () => {
+    try {
+      const [savedStation, savedPlaylist] = await Promise.all([
+        AsyncStorage.getItem(STORAGE_KEYS.CURRENT_STATION),
+        AsyncStorage.getItem(STORAGE_KEYS.PLAYLIST),
+      ]);
+
+      if (savedStation) {
+        const station: RadioStation = JSON.parse(savedStation);
+        console.log('📂 [Storage] 저장된 방송국 불러옴:', station.name);
+        setCurrentStation(station);
+        const track: Track = {
+          url: station.streamUrl,  // 원본 URL 직접 사용 - 빠른 재생!
+          title: station.name,
+          artist: station.artist || 'Live Radio',  // 방송국별 아티스트 이름
+          artwork: station.artwork,  // 썸네일 이미지
+          isLiveStream: true,
+          type: TrackType.HLS,
+          contentType: 'application/x-mpegURL',
+        };
+        await TrackPlayer.add(track)
+        await TrackPlayer.pause(); // 일시정지 상태로 로드
+      }
+
+      if (savedPlaylist) {
+        const stations: RadioStation[] = JSON.parse(savedPlaylist);
+        console.log('📂 [Storage] 저장된 플레이리스트 불러옴, 크기:', stations.length);
+        setPlaylist(stations);
+        setPlaybackState(PlaybackState.PAUSED);
+      }
+    } catch (error) {
+      console.error('❌ [Storage] 재생 상태 불러오기 실패:', error);
+    }
+  };
 
   // ============================================
   // TrackPlayer 초기화 & 미디어 컨트롤 설정
@@ -58,14 +150,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 
     const setupPlayer = async () => {
       try {
-        // 앱 강제종료 후 재시작 시 기존 플레이어 상태 정리
-        try {
-          await TrackPlayer.reset();
-          console.log("🧹 [AudioContext] 기존 플레이어 상태 정리 완료");
-        } catch (resetError) {
-          console.log("ℹ️ [AudioContext] 정리할 플레이어 없음 (정상)");
-        }
-
         // TrackPlayer 초기화 (이미 초기화되어 있으면 에러 무시)
         try {
           await TrackPlayer.setupPlayer({
@@ -76,7 +160,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         } catch (setupError: any) {
           // 이미 설정되어 있는 경우 (앱이 완전히 종료되지 않았을 때)
           if (setupError?.message?.includes('already') || setupError?.code === 'player_already_initialized') {
-            console.log("ℹ️ [AudioContext] TrackPlayer 이미 초기화됨");
+            console.log("ℹ️ [AudioContext] TrackPlayer 이미 초기화됨 (재사용)");
           } else {
             throw setupError; // 다른 에러는 상위로 전파
           }
@@ -115,15 +199,15 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         });
 
         setIsPlayerReady(true);
-        console.log("✅ [AudioContext] TrackPlayer 설정 완료");
+        console.log("✅ [AudioContext] TrackPlayer 설정 완료 (즉시 재생 가능)");
       } catch (error) {
         console.error("❌ [AudioContext] TrackPlayer 초기화 실패:", error);
-        // 초기화 실패해도 앱은 계속 실행되도록 함
         setIsPlayerReady(false);
       }
     };
 
-    setupPlayer();
+    // Promise 저장 (초기화 대기용)
+    setupPromiseRef.current = setupPlayer();
 
     return () => {
       console.log("🔌 [AudioContext] TrackPlayer 정리");
@@ -133,11 +217,43 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   // ============================================
-  // currentStation 동기화
+  // 앱 시작 시 저장된 재생 상태 불러오기
+  // ============================================
+  useEffect(() => {
+    loadPlaybackState();
+  }, []);
+
+  // ============================================
+  // Ref 동기화
   // ============================================
   useEffect(() => {
     currentStationRef.current = currentStation;
   }, [currentStation]);
+
+  useEffect(() => {
+    playbackStateRef.current = playbackState;
+  }, [playbackState]);
+
+  useEffect(() => {
+    playlistRef.current = playlist;
+  }, [playlist]);
+
+  // ============================================
+  // 재생 상태 자동 저장
+  // ============================================
+  // currentStation 변경 시 저장
+  useEffect(() => {
+    if (currentStation) {
+      saveCurrentStation(currentStation);
+    }
+  }, [currentStation]);
+
+  // playlist 변경 시 저장
+  useEffect(() => {
+    if (playlist.length > 0) {
+      savePlaylist(playlist);
+    }
+  }, [playlist]);
 
   // ============================================
   // 알림 탭 이벤트 리스너 (플레이어 화면으로 이동)
@@ -156,7 +272,8 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         // 재생 중인 방송이 있으면 플레이어 화면으로 이동
         console.log("📱 [AppState] 앱이 활성화됨, 플레이어 화면으로 이동");
         try {
-          router.push('/player');
+          router.prefetch('/player');
+          router.push("/player");
         } catch (error) {
           console.warn("⚠️ [AppState] 라우팅 실패:", error);
         }
@@ -177,20 +294,24 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 
     const nextSubscription = TrackPlayer.addEventListener(Event.RemoteNext, async () => {
       console.log("⏭️ [Event] RemoteNext - 다음 방송국");
-      if (currentIndex >= 0 && currentIndex < playlist.length - 1) {
-        await play(playlist[currentIndex + 1]);
-      } else {
-        console.log("⚠️ [Event] 다음 방송국 없음");
+      if (playlist.length === 0) {
+        console.log("⚠️ [Event] 플레이리스트 비어있음");
+        return;
       }
+      // 무한 순회: 마지막이면 처음으로
+      const nextIndex = currentIndex >= playlist.length - 1 ? 0 : currentIndex + 1;
+      await play(playlist[nextIndex]);
     });
 
     const previousSubscription = TrackPlayer.addEventListener(Event.RemotePrevious, async () => {
       console.log("⏮️ [Event] RemotePrevious - 이전 방송국");
-      if (currentIndex > 0) {
-        await play(playlist[currentIndex - 1]);
-      } else {
-        console.log("⚠️ [Event] 이전 방송국 없음");
+      if (playlist.length === 0) {
+        console.log("⚠️ [Event] 플레이리스트 비어있음");
+        return;
       }
+      // 무한 순회: 처음이면 마지막으로
+      const prevIndex = currentIndex <= 0 ? playlist.length - 1 : currentIndex - 1;
+      await play(playlist[prevIndex]);
     });
 
     return () => {
@@ -214,7 +335,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 
       // 방송국 없음 → IDLE
       if (!currentStationRef.current) {
-        if (playbackState !== PlaybackState.IDLE) {
+        if (playbackStateRef.current !== PlaybackState.IDLE) {
           setPlaybackState(PlaybackState.IDLE);
         }
         return;
@@ -227,14 +348,65 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         if (state === State.Ready) {
           await TrackPlayer.play();
           isLoadingNewStationRef.current = false;
+          retryCountRef.current = 0; // 재시도 횟수 초기화
           setPlaybackState(PlaybackState.PLAYING);
         } else if (state === State.Buffering || state === State.Loading) {
           // 버퍼링 중에는 LOADING 상태 유지
           setPlaybackState(PlaybackState.LOADING);
         } else if (state === State.Error) {
-          setPlaybackState(PlaybackState.ERROR);
+          console.error("❌ [Event] 재생 오류 발생, 재시도 횟수:", retryCountRef.current);
+
+          // 재시도 실패 → 토스트 + 다음 트랙
+          console.log("❌ [Action] 재생 불가능, 다음 트랙으로 이동");
           isLoadingNewStationRef.current = false;
+          retryCountRef.current = 0; // 재시도 횟수 초기화
+
+          // 토스트 메시지
+          const stationName = currentStationRef.current?.name || '방송국';
+          showToast(`${stationName} 재생 불가능 - 다음 곡으로 이동합니다`);
+
+          // 즉시 다음 트랙으로 스무스하게 이동
+          const currentPlaylist = playlistRef.current;
+          const currentSt = currentStationRef.current;
+
+          if (currentPlaylist.length > 0) {
+            // 현재 인덱스 계산
+            const currentIdx = currentSt
+              ? currentPlaylist.findIndex(s => s.id === currentSt.id)
+              : -1;
+
+            // 다음 인덱스 계산 (무한 순회)
+            const nextIndex = currentIdx >= currentPlaylist.length - 1 ? 0 : currentIdx + 1;
+            const nextStation = currentPlaylist[nextIndex];
+
+            console.log(`🎯 [Action] 다음 트랙으로 스무스하게 이동: ${nextStation.name}`);
+
+            // 다음 트랙을 큐에 추가하고 skip (미디어 컨트롤 유지)
+            const nextTrack: Track = {
+              url: nextStation.streamUrl,
+              title: nextStation.name,
+              artist: nextStation.artist || 'Live Radio',
+              artwork: nextStation.artwork,
+              isLiveStream: true,
+              type: TrackType.HLS,
+              contentType: 'application/x-mpegURL',
+            };
+
+              await TrackPlayer.add(nextTrack);
+              await TrackPlayer.skip(1);
+              await TrackPlayer.remove(0);
+            //     // 다음 방송국으로 상태 업데이트
+                setCurrentStation(nextStation);
+                setPlaybackState(PlaybackState.LOADING);
+                isLoadingNewStationRef.current = true;
+
+            console.log("✅ [Action] 다음 트랙으로 스무스하게 이동 완료");
+          } else {
+            console.log("⚠️ [Action] 플레이리스트가 비어있어 다음 트랙으로 이동 불가");
+            setPlaybackState(PlaybackState.ERROR);
+          }
         }
+
         return;
       }
 
@@ -243,20 +415,20 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       // ============================================
       if (state === State.Playing) {
         if (userPausedRef.current) return; // 사용자 일시정지 중
-        if (playbackState !== PlaybackState.PLAYING) {
+        if (playbackStateRef.current !== PlaybackState.PLAYING) {
           setPlaybackState(PlaybackState.PLAYING);
         }
       } else if (state === State.Paused) {
-        if (playbackState !== PlaybackState.PAUSED) {
+        if (playbackStateRef.current !== PlaybackState.PAUSED) {
           setPlaybackState(PlaybackState.PAUSED);
         }
         userPausedRef.current = false;
       } else if (state === State.Stopped) {
-        if (playbackState !== PlaybackState.IDLE) {
+        if (playbackStateRef.current !== PlaybackState.IDLE) {
           setPlaybackState(PlaybackState.IDLE);
         }
       } else if (state === State.Buffering) {
-        if (playbackState !== PlaybackState.LOADING) {
+        if (playbackStateRef.current !== PlaybackState.LOADING) {
           setPlaybackState(PlaybackState.LOADING);
         }
       } else if (state === State.Error) {
@@ -269,23 +441,31 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       errorSubscription.remove();
       stateSubscription.remove();
     };
-  }, [playbackState]);
+  }, []); // ✅ 의존성 배열 비움 - 무한 루프 방지
 
   // ============================================
   // 재생 함수
   // ============================================
-  const play = async (station: RadioStation) => {
+  const play = async (station: RadioStation, isRetry: boolean = false) => {
     try {
-      if (!isPlayerReady) {
-        console.warn("⚠️ [Action] TrackPlayer가 아직 준비되지 않음");
-        return;
+      // 초기화 대기
+      if (!isPlayerReady && setupPromiseRef.current) {
+        console.log("⏳ [Action] TrackPlayer 초기화 대기 중...");
+        await setupPromiseRef.current;
+        console.log("✅ [Action] TrackPlayer 초기화 완료, 재생 시작");
       }
 
-      console.log("🎵 [Action] 재생:", station.name);
+      console.log("🎵 [Action] 재생:", station.name, isRetry ? `(재시도 ${retryCountRef.current}/${maxRetries})` : '');
 
       // 1. 즉시 플래그와 상태 초기화
       isLoadingNewStationRef.current = true;
       userPausedRef.current = false;
+
+      // 새로운 방송국이면 재시도 횟수 초기화 (재시도가 아닐 때만)
+      if (!isRetry && currentStation?.id !== station.id) {
+        retryCountRef.current = 0;
+      }
+
       const wasPlaying = playbackState === PlaybackState.PLAYING;
 
       // 상태를 LOADING으로 설정하되, 미디어 컨트롤은 유지
@@ -303,29 +483,21 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         contentType: 'application/x-mpegURL',
       };
 
-      // 3. 부드러운 트랙 전환
+      // 3. 부드러운 트랙 전환 (미디어 컨트롤 유지)
       try {
-        // 먼저 메타데이터 업데이트 (미디어 컨트롤에 새 방송국 이름 표시)
-        try {
-          await TrackPlayer.updateMetadataForTrack(0, {
-            title: station.name,
-            artist: 'Live Radio',
-          });
-        } catch (metaError) {
-          console.log("ℹ️ [Action] 메타데이터 업데이트 건너뜀 (트랙 없음)");
+        const queue = await TrackPlayer.getQueue();
+
+        if (queue.length > 0) {
+          // 기존 트랙이 있으면: 새 트랙을 끝에 추가 → 새 트랙으로 이동 → 이전 트랙 제거
+          await TrackPlayer.add(track); // 인덱스 1에 추가
+          await TrackPlayer.skip(1); // 새 트랙으로 이동 (미디어 컨트롤 유지됨)
+          await TrackPlayer.remove(0); // 이전 트랙 제거
+        } else {
+          // 첫 재생: 트랙 추가만
+          await TrackPlayer.add(track);
         }
 
-        // 일시정지 후 부드럽게 전환
-        if (wasPlaying) {
-          await TrackPlayer.pause();
-        }
-
-        // 기존 트랙 제거
-        await TrackPlayer.reset();
-
-        // 새 트랙 추가
-        await TrackPlayer.add(track);
-        console.log("✅ [Action] 트랙 전환 완료, 재생 대기 중");
+        console.log("✅ [Action] 트랙 추가 완료, 버퍼링 대기 중");
       } catch (resetError) {
         console.warn("⚠️ [Action] 트랙 전환 실패, 강제 복구:", resetError);
         // 에러 시 강제 복구
@@ -431,22 +603,25 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   };
 
   // ============================================
-  // 플레이리스트 네비게이션
+  // 플레이리스트 네비게이션 (무한 순회)
   // ============================================
   const playNext = async () => {
-    if (currentIndex >= 0 && currentIndex < playlist.length - 1) {
-      await play(playlist[currentIndex + 1]);
-    }
+    if (playlist.length === 0) return;
+    // 무한 순회: 마지막이면 처음으로
+    const nextIndex = currentIndex >= playlist.length - 1 ? 0 : currentIndex + 1;
+    await play(playlist[nextIndex]);
   };
 
   const playPrevious = async () => {
-    if (currentIndex > 0) {
-      await play(playlist[currentIndex - 1]);
-    }
+    if (playlist.length === 0) return;
+    // 무한 순회: 처음이면 마지막으로
+    const prevIndex = currentIndex <= 0 ? playlist.length - 1 : currentIndex - 1;
+    await play(playlist[prevIndex]);
   };
 
-  const hasNext = currentIndex >= 0 && currentIndex < playlist.length - 1;
-  const hasPrevious = currentIndex > 0;
+  // 무한 순회이므로 플레이리스트가 있으면 항상 이동 가능
+  const hasNext = playlist.length > 0;
+  const hasPrevious = playlist.length > 0;
   const isPlaying = playbackState === PlaybackState.PLAYING;
 
   return (

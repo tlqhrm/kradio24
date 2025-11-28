@@ -202,12 +202,6 @@ export default function DraggableStationList({
     setInternalData(data);
   }, [data]);
 
-  // 초기 마운트 시에만 플레이리스트 설정
-  useEffect(() => {
-    if (data.length > 0) {
-      onSetPlaylist();
-    }
-  }, []); // 빈 배열: 마운트 시 1회만 실행
   console.log("DraggableStationList");
 
   // 드래그 종료 핸들러 - 인덱스 기반 재정렬

@@ -34,7 +34,11 @@ export default function HomeScreen() {
 
     const ordered = getOrderedStations(filtered);
     setData(ordered);
-  }, [selectedCategory, getOrderedStations]);
+
+    // 플레이리스트도 함께 업데이트
+    console.log('🔄 카테고리 변경, 플레이리스트 업데이트:', ordered.length);
+    setPlaylist(ordered);
+  }, [selectedCategory, getOrderedStations, setPlaylist]);
 
   // 하단 여백 계산 - 탭바와 분리된 느낌
   const tabBarHeight = 60 + insets.bottom;
@@ -60,6 +64,7 @@ export default function HomeScreen() {
   }, [selectedStation, toggleFavorite]);
 
   const handleSetPlaylist = useCallback(() => {
+    console.log('📋 handleSetPlaylist 호출, playlist 크기:', dataRef.current.length);
     setPlaylist(dataRef.current);
   }, [setPlaylist]);
 
