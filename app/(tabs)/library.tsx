@@ -15,53 +15,31 @@ export default function LibraryScreen() {
   const { favorites, isFavorite, toggleFavorite } = useFavorites();
   const { currentStation, setPlaylist, togglePlayPause, playbackState } = useAudio();
   const { getOrderedStations, updateStationOrder } = useStationOrder();
-  const [menuVisible, setMenuVisible] = useState(false);
-  const [selectedStation, setSelectedStation] = useState<RadioStation | null>(null);
   const [data, setData] = useState<RadioStation[]>([]);
 
   // 즐겨찾기 순서 적용
   useEffect(() => {
     const ordered = getOrderedStations(favorites);
+    console.log("즐겨찾기 로드 및 정렬:", ordered.map(s => s.name));
     setData(ordered);
   }, [favorites, getOrderedStations]);
 
   // 하단 여백 계산 - 탭바와 분리된 느낌
   const tabBarHeight = 60 + insets.bottom;
   const miniPlayerHeight = currentStation ? 64 : 0;
-  const bottomPadding = tabBarHeight + miniPlayerHeight + 32; // 16 → 32로 증가
 
-  const handleLongPress = useCallback((station: RadioStation) => {
-    setSelectedStation(station);
-    setMenuVisible(true);
-  }, []);
-
-  const handlePlay = useCallback(() => {
-    if (selectedStation) {
-      setPlaylist(data);
-      togglePlayPause(selectedStation);
-    }
-  }, [selectedStation, data, setPlaylist, togglePlayPause]);
-
-  const handleToggleFavorite = useCallback(() => {
-    if (selectedStation) {
-      toggleFavorite(selectedStation);
-    }
-  }, [selectedStation, toggleFavorite]);
 
   const handleSetPlaylist = useCallback(() => {
     setPlaylist(data);
   }, [setPlaylist, data]);
 
   const handleDragEnd = useCallback((newData: RadioStation[]) => {
-    // 플레이리스트 업데이트
+    setData(newData);
+    updateStationOrder(newData);
+
     if (currentStation) {
       setPlaylist(newData);
     }
-
-    // 순서 저장
-    updateStationOrder(newData, true);
-
-    setData(newData);
   }, [currentStation, setPlaylist, updateStationOrder]);
 
   if (favorites.length === 0) {
@@ -111,15 +89,6 @@ export default function LibraryScreen() {
         />
       </View>
 
-      {/* 컨텍스트 메뉴 */}
-      <StationContextMenu
-        visible={menuVisible}
-        station={selectedStation}
-        isFavorite={selectedStation ? isFavorite(selectedStation.id) : false}
-        onClose={() => setMenuVisible(false)}
-        onPlay={handlePlay}
-        onToggleFavorite={handleToggleFavorite}
-      />
     </SafeAreaView>
   );
 }

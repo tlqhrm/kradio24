@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { RadioStation } from "@/types/radio";
 
@@ -33,37 +33,42 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const saveFavorites = async (newFavorites: RadioStation[]) => {
+  const saveFavorites = useCallback(async (newFavorites: RadioStation[]) => {
     try {
-      // UI 반영을 먼저 수행하고 저장
-      setFavorites(newFavorites);
       await AsyncStorage.setItem(FAVORITES_KEY, JSON.stringify(newFavorites));
+      setFavorites(newFavorites);
     } catch (error) {
       console.error("즐겨찾기 저장 오류:", error);
     }
-  };
+  }, []);
 
-  const addFavorite = async (station: RadioStation) => {
-    const newFavorites = [...favorites, station];
-    await saveFavorites(newFavorites);
-  };
+  const addFavorite = useCallback(async (station: RadioStation) => {
+    setFavorites(prev => {
+      const newFavorites = [...prev, station];
+      AsyncStorage.setItem(FAVORITES_KEY, JSON.stringify(newFavorites));
+      return newFavorites;
+    });
+  }, []);
 
-  const removeFavorite = async (stationId: string) => {
-    const newFavorites = favorites.filter((s) => s.id !== stationId);
-    await saveFavorites(newFavorites);
-  };
+  const removeFavorite = useCallback(async (stationId: string) => {
+    setFavorites(prev => {
+      const newFavorites = prev.filter((s) => s.id !== stationId);
+      AsyncStorage.setItem(FAVORITES_KEY, JSON.stringify(newFavorites));
+      return newFavorites;
+    });
+  }, []);
 
-  const isFavorite = (stationId: string) => {
+  const isFavorite = useCallback((stationId: string) => {
     return favorites.some((s) => s.id === stationId);
-  };
+  }, [favorites]);
 
-  const toggleFavorite = async (station: RadioStation) => {
+  const toggleFavorite = useCallback(async (station: RadioStation) => {
     if (isFavorite(station.id)) {
       await removeFavorite(station.id);
     } else {
       await addFavorite(station);
     }
-  };
+  }, [isFavorite, removeFavorite, addFavorite]);
 
   return (
     <FavoritesContext.Provider

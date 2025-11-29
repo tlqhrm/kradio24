@@ -403,7 +403,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         setRetryCount(0);
       }
 
-      const wasPlaying = playbackState === PlaybackState.PLAYING;
 
       // 상태를 LOADING으로 설정하되, 미디어 컨트롤은 유지
       setPlaybackState(PlaybackState.LOADING);

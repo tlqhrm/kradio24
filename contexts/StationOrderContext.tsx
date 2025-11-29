@@ -4,7 +4,7 @@ import { RadioStation } from '@/types/radio';
 
 interface StationOrderContextType {
   getOrderedStations: (stations: RadioStation[]) => RadioStation[];
-  updateStationOrder: (orderedStations: RadioStation[], silent?: boolean) => Promise<void>;
+  updateStationOrder: (orderedStations: RadioStation[]) => Promise<void>;
   isLoading: boolean;
 }
 
@@ -61,23 +61,15 @@ export function StationOrderProvider({ children }: { children: React.ReactNode }
   }, [stationOrder]);
 
   // 순서 업데이트 및 저장
-  const updateStationOrder = useCallback(async (orderedStations: RadioStation[], silent = false) => {
+  const updateStationOrder = useCallback(async (orderedStations: RadioStation[]) => {
     try {
       const newOrder = orderedStations.map(station => station.id);
-
-      // 상태 업데이트
-      if (!silent) {
-        setStationOrder(newOrder);
-      } else {
-        // silent 모드일 때도 내부 저장은 해둠 (UI 리렌더를 원치 않을 때)
-        setStationOrder(newOrder);
-      }
-
+      setStationOrder(newOrder);
       await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(newOrder));
     } catch (error) {
       console.error('Failed to save station order:', error);
     }
-  }, [setStationOrder]);
+  }, []);
 
   return (
     <StationOrderContext.Provider value={{ getOrderedStations, updateStationOrder, isLoading }}>

@@ -187,8 +187,8 @@ export default function DraggableStationList({
   bottomPadding,
   currentStation,
   playbackState,
-  onSetPlaylist,
   isFavorite,
+  onSetPlaylist,
   toggleFavorite,
   togglePlayPause,
 }: DraggableStationListProps) {
@@ -228,7 +228,7 @@ export default function DraggableStationList({
 
       // 인라인 콜백 제거 - useCallback은 컴포넌트 레벨에서만 가능하므로
       // 여기서는 함수를 미리 생성
-      const handlePressStation = () => togglePlayPause(item);
+      const handlePressStation = () => {togglePlayPause(item); onSetPlaylist()};
       const handlePressFavorite = () => toggleFavorite(item);
 
       return (
