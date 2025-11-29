@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useFavorites } from "@/contexts/FavoritesContext";
 import { useAudio } from "@/contexts/AudioContext";
 import { useStationOrder } from "@/contexts/StationOrderContext";
@@ -18,8 +18,6 @@ export default function LibraryScreen() {
   const [menuVisible, setMenuVisible] = useState(false);
   const [selectedStation, setSelectedStation] = useState<RadioStation | null>(null);
   const [data, setData] = useState<RadioStation[]>([]);
-  const dataRef = useRef<RadioStation[]>(data);
-  useEffect(() => { dataRef.current = data; }, [data]);
 
   // 즐겨찾기 순서 적용
   useEffect(() => {
@@ -51,12 +49,10 @@ export default function LibraryScreen() {
   }, [selectedStation, toggleFavorite]);
 
   const handleSetPlaylist = useCallback(() => {
-    setPlaylist(dataRef.current);
-  }, [setPlaylist]);
+    setPlaylist(data);
+  }, [setPlaylist, data]);
 
   const handleDragEnd = useCallback((newData: RadioStation[]) => {
-    dataRef.current = newData;
-
     // 플레이리스트 업데이트
     if (currentStation) {
       setPlaylist(newData);

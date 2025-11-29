@@ -64,19 +64,20 @@ export function StationOrderProvider({ children }: { children: React.ReactNode }
   const updateStationOrder = useCallback(async (orderedStations: RadioStation[], silent = false) => {
     try {
       const newOrder = orderedStations.map(station => station.id);
-      console.log('Saving new station order:', newOrder);
 
-      // silent 모드가 아닐 때만 상태 업데이트 (드래그 시에는 불필요한 리렌더링 방지)
+      // 상태 업데이트
       if (!silent) {
-        // setStationOrder(newOrder);
+        setStationOrder(newOrder);
+      } else {
+        // silent 모드일 때도 내부 저장은 해둠 (UI 리렌더를 원치 않을 때)
+        setStationOrder(newOrder);
       }
 
       await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(newOrder));
-      console.log('Station order saved successfully.');
     } catch (error) {
       console.error('Failed to save station order:', error);
     }
-  }, []);
+  }, [setStationOrder]);
 
   return (
     <StationOrderContext.Provider value={{ getOrderedStations, updateStationOrder, isLoading }}>

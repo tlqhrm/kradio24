@@ -4,29 +4,29 @@ import { useRouter } from "expo-router";
 import { useAudio } from "@/contexts/AudioContext";
 import { useFavorites } from "@/contexts/FavoritesContext";
 import { PlaybackState } from "@/types/radio";
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function PlayerScreen() {
   const router = useRouter();
   const { currentStation, playbackState, pause, resume, stop, isPlaying, playNext, playPrevious, hasNext, hasPrevious } = useAudio();
+
   const { isFavorite, toggleFavorite } = useFavorites();
-  const hasNavigatedBack = useRef(false);
+  const [hasNavigatedBack, setHasNavigatedBack] = useState(false);
 
   // currentStation이 없으면 뒤로 가기 (한 번만)
   useEffect(() => {
-    if (!currentStation && !hasNavigatedBack.current && router.canGoBack()) {
-      hasNavigatedBack.current = true;
+    if (!currentStation && !hasNavigatedBack && router.canGoBack()) {
+      setHasNavigatedBack(true);
       // 약간의 지연을 두고 네비게이션 실행
       setTimeout(() => {
         router.back();
       }, 100);
     }
-  }, [currentStation, router]);
+  }, [currentStation, router, hasNavigatedBack]);
 
-  if (!currentStation) {
-    return null;
-  }
+  if (!currentStation) return null;
+
 
   return (
     <SafeAreaView className="flex-1 bg-black">

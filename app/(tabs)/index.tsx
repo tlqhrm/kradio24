@@ -1,6 +1,6 @@
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { STATIONS, getAllCategories } from "@/data/stations";
 import { RadioStation } from "@/types/radio";
 import { useAudio } from "@/contexts/AudioContext";
@@ -22,8 +22,6 @@ export default function HomeScreen() {
   const [menuVisible, setMenuVisible] = useState(false);
   const [selectedStation, setSelectedStation] = useState<RadioStation | null>(null);
   const [data, setData] = useState<RadioStation[]>([]);
-  const dataRef = useRef<RadioStation[]>(data);
-  useEffect(() => { dataRef.current = data; }, [data]);
   const categories = ["전체", ...getAllCategories()];
 
   // 카테고리 필터링 및 순서 적용
@@ -36,7 +34,6 @@ export default function HomeScreen() {
     setData(ordered);
 
     // 플레이리스트도 함께 업데이트
-    console.log('🔄 카테고리 변경, 플레이리스트 업데이트:', ordered.length);
     setPlaylist(ordered);
   }, [selectedCategory, getOrderedStations, setPlaylist]);
 
@@ -64,29 +61,20 @@ export default function HomeScreen() {
   }, [selectedStation, toggleFavorite]);
 
   const handleSetPlaylist = useCallback(() => {
-    console.log('📋 handleSetPlaylist 호출, playlist 크기:', dataRef.current.length);
-    setPlaylist(dataRef.current);
-  }, [setPlaylist]);
+    setPlaylist(data);
+  }, [setPlaylist, data]);
 
 
   const handleDragEnd = useCallback((newData: RadioStation[]) => {
-    console.log('🟠 index.handleDragEnd 시작');
-    // setData 제거 → 리렌더링 방지 → 깜빡임 제거
-    dataRef.current = newData;
-
     // 플레이리스트 업데이트
     if (currentStation) {
-      console.log('🟡 setPlaylist 호출');
       setPlaylist(newData);
     }
 
-    // 순서 저장 → 다음 카테고리 변경 시 getOrderedStations가 반영
-    console.log('🔴 updateStationOrder 호출');
+    // 순서 저장
     updateStationOrder(newData, true);
 
-    console.log('🟣 setData 호출');
     setData(newData);
-    console.log('⚫ index.handleDragEnd 완료');
   }, [currentStation, setPlaylist, updateStationOrder]);
 
   return (

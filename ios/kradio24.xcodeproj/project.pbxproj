@@ -8,32 +8,32 @@
 
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		2731DED97465436DAEE68B86 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14E028BB9D7E4BDA8501A72F /* InfoPlist.strings */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		5FCF859890626DCB2435ADB5 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 462E6F0447CC7E402F3167B2 /* PrivacyInfo.xcprivacy */; };
-		7647B6669C620DDBCBA00D4F /* libPods-KRadio24.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DD3CE5CF3E0253E73BFF196 /* libPods-KRadio24.a */; };
+		41938FB73A93CFCACCA938CA /* libPods-KRadio24.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C638A35CE88D614DC0A8A59F /* libPods-KRadio24.a */; };
+		591DCC8F085E5EBADF8F89A2 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D47B0CF3E8CC5E7702BC72 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
+		D186DC82BDFD42EA8647ACAA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1C25A75BF1B94E7784235463 /* InfoPlist.strings */; };
+		D3E1277B120F415DA92E469B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3B1CF03CE842DD9FA19E95 /* InfoPlist.strings */; };
+		D8C03DB5172DF6667BBBE0C7 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = E1B0A33E0F1F5E836017289F /* PrivacyInfo.xcprivacy */; };
 		F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11748412D0307B40044C1D9 /* AppDelegate.swift */; };
-		F41A431BB911E37202B238B5 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8325190264FC9B938B7FBAEF /* ExpoModulesProvider.swift */; };
-		F744BCD748EE4F79B17ADFEF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 982179BE492F4D7190ABA9DD /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		13B07F961A680F5B00A75B9A /* KRadio24.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KRadio24.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = KRadio24/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = KRadio24/Info.plist; sourceTree = "<group>"; };
-		14E028BB9D7E4BDA8501A72F /* InfoPlist.strings */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		462E6F0447CC7E402F3167B2 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = KRadio24/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		6DD3CE5CF3E0253E73BFF196 /* libPods-KRadio24.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KRadio24.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8325190264FC9B938B7FBAEF /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-KRadio24/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		982179BE492F4D7190ABA9DD /* InfoPlist.strings */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		A5AC2AC1126E738883B43040 /* Pods-KRadio24.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KRadio24.release.xcconfig"; path = "Target Support Files/Pods-KRadio24/Pods-KRadio24.release.xcconfig"; sourceTree = "<group>"; };
+		1C25A75BF1B94E7784235463 /* InfoPlist.strings */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4D3B1CF03CE842DD9FA19E95 /* InfoPlist.strings */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		72A3EF9CDCF1636891BF31CB /* Pods-KRadio24.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KRadio24.debug.xcconfig"; path = "Target Support Files/Pods-KRadio24/Pods-KRadio24.debug.xcconfig"; sourceTree = "<group>"; };
+		81D47B0CF3E8CC5E7702BC72 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-KRadio24/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = KRadio24/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
+		C638A35CE88D614DC0A8A59F /* libPods-KRadio24.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KRadio24.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1B0A33E0F1F5E836017289F /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = KRadio24/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		E71760F0C78CF9A45E1FE231 /* Pods-KRadio24.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KRadio24.release.xcconfig"; path = "Target Support Files/Pods-KRadio24/Pods-KRadio24.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F11748412D0307B40044C1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = KRadio24/AppDelegate.swift; sourceTree = "<group>"; };
 		F11748442D0722820044C1D9 /* KRadio24-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "KRadio24-Bridging-Header.h"; path = "KRadio24/KRadio24-Bridging-Header.h"; sourceTree = "<group>"; };
-		F49438F51F5DDF775A4FEFC0 /* Pods-KRadio24.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KRadio24.debug.xcconfig"; path = "Target Support Files/Pods-KRadio24/Pods-KRadio24.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,13 +41,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7647B6669C620DDBCBA00D4F /* libPods-KRadio24.a in Frameworks */,
+				41938FB73A93CFCACCA938CA /* libPods-KRadio24.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0112EFB0CBE541949EE6FDA3 /* ko.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				1C25A75BF1B94E7784235463 /* InfoPlist.strings */,
+			);
+			name = ko.lproj;
+			path = "";
+			sourceTree = "<group>";
+		};
+		064B7D2FA2581079CCDCEE34 /* ExpoModulesProviders */ = {
+			isa = PBXGroup;
+			children = (
+				8AFFB472DB93B6724E96A4AA /* KRadio24 */,
+			);
+			name = ExpoModulesProviders;
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* KRadio24 */ = {
 			isa = PBXGroup;
 			children = (
@@ -57,52 +74,27 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				462E6F0447CC7E402F3167B2 /* PrivacyInfo.xcprivacy */,
+				E1B0A33E0F1F5E836017289F /* PrivacyInfo.xcprivacy */,
 			);
 			name = KRadio24;
 			sourceTree = "<group>";
 		};
-		2044D9D99CB240A0AB859503 /* ko.lproj */ = {
+		2A7D6FD11544479FBD69A4F9 /* en.lproj */ = {
 			isa = PBXGroup;
 			children = (
-				982179BE492F4D7190ABA9DD /* InfoPlist.strings */,
+				4D3B1CF03CE842DD9FA19E95 /* InfoPlist.strings */,
 			);
-			name = ko.lproj;
+			name = en.lproj;
 			path = "";
-			sourceTree = "<group>";
-		};
-		29DB65D7AEA845F2C7DCAD04 /* ExpoModulesProviders */ = {
-			isa = PBXGroup;
-			children = (
-				681BB737E781E3B7C3D6E4FF /* KRadio24 */,
-			);
-			name = ExpoModulesProviders;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				6DD3CE5CF3E0253E73BFF196 /* libPods-KRadio24.a */,
+				C638A35CE88D614DC0A8A59F /* libPods-KRadio24.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		681BB737E781E3B7C3D6E4FF /* KRadio24 */ = {
-			isa = PBXGroup;
-			children = (
-				8325190264FC9B938B7FBAEF /* ExpoModulesProvider.swift */,
-			);
-			name = KRadio24;
-			sourceTree = "<group>";
-		};
-		7496DCFDA1324468944D1085 /* en.lproj */ = {
-			isa = PBXGroup;
-			children = (
-				14E028BB9D7E4BDA8501A72F /* InfoPlist.strings */,
-			);
-			name = en.lproj;
-			path = "";
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -119,8 +111,8 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				92A28CDBB6B484997A414CD3 /* Pods */,
-				29DB65D7AEA845F2C7DCAD04 /* ExpoModulesProviders */,
+				95E735534EB2B4F6D06C2A74 /* Pods */,
+				064B7D2FA2581079CCDCEE34 /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -135,11 +127,19 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		92A28CDBB6B484997A414CD3 /* Pods */ = {
+		8AFFB472DB93B6724E96A4AA /* KRadio24 */ = {
 			isa = PBXGroup;
 			children = (
-				F49438F51F5DDF775A4FEFC0 /* Pods-KRadio24.debug.xcconfig */,
-				A5AC2AC1126E738883B43040 /* Pods-KRadio24.release.xcconfig */,
+				81D47B0CF3E8CC5E7702BC72 /* ExpoModulesProvider.swift */,
+			);
+			name = KRadio24;
+			sourceTree = "<group>";
+		};
+		95E735534EB2B4F6D06C2A74 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				72A3EF9CDCF1636891BF31CB /* Pods-KRadio24.debug.xcconfig */,
+				E71760F0C78CF9A45E1FE231 /* Pods-KRadio24.release.xcconfig */,
 			);
 			name = Pods;
 			path = Pods;
@@ -149,8 +149,8 @@
 			isa = PBXGroup;
 			children = (
 				BB2F792C24A3F905000567C9 /* Expo.plist */,
-				2044D9D99CB240A0AB859503 /* ko.lproj */,
-				7496DCFDA1324468944D1085 /* en.lproj */,
+				0112EFB0CBE541949EE6FDA3 /* ko.lproj */,
+				2A7D6FD11544479FBD69A4F9 /* en.lproj */,
 			);
 			name = Supporting;
 			path = KRadio24/Supporting;
@@ -164,13 +164,13 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "KRadio24" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
-				7515B4D2AC484112607BCD46 /* [Expo] Configure project */,
+				607354E61163052018037A2C /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				85128B1B2D70F8119656BDAA /* [CP] Embed Pods Frameworks */,
+				61516A74EB8E62FB19A08DC5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -220,9 +220,9 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				F744BCD748EE4F79B17ADFEF /* InfoPlist.strings in Resources */,
-				2731DED97465436DAEE68B86 /* InfoPlist.strings in Resources */,
-				5FCF859890626DCB2435ADB5 /* PrivacyInfo.xcprivacy in Resources */,
+				D186DC82BDFD42EA8647ACAA /* InfoPlist.strings in Resources */,
+				D3E1277B120F415DA92E469B /* InfoPlist.strings in Resources */,
+				D8C03DB5172DF6667BBBE0C7 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,7 +266,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7515B4D2AC484112607BCD46 /* [Expo] Configure project */ = {
+		607354E61163052018037A2C /* [Expo] Configure project */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -284,6 +284,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-KRadio24/expo-configure-project.sh\"\n";
+		};
+		61516A74EB8E62FB19A08DC5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KRadio24/Pods-KRadio24-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KRadio24/Pods-KRadio24-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -321,24 +339,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KRadio24/Pods-KRadio24-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		85128B1B2D70F8119656BDAA /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KRadio24/Pods-KRadio24-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KRadio24/Pods-KRadio24-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -347,7 +347,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */,
-				F41A431BB911E37202B238B5 /* ExpoModulesProvider.swift in Sources */,
+				591DCC8F085E5EBADF8F89A2 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,7 +356,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F49438F51F5DDF775A4FEFC0 /* Pods-KRadio24.debug.xcconfig */;
+			baseConfigurationReference = 72A3EF9CDCF1636891BF31CB /* Pods-KRadio24.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -392,7 +392,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A5AC2AC1126E738883B43040 /* Pods-KRadio24.release.xcconfig */;
+			baseConfigurationReference = E71760F0C78CF9A45E1FE231 /* Pods-KRadio24.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

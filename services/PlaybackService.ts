@@ -5,17 +5,14 @@ export async function PlaybackService() {
   // Next/Previous는 AudioContext에서 처리
 
   TrackPlayer.addEventListener(Event.RemotePlay, () => {
-    console.log('[PlaybackService] Remote Play');
     TrackPlayer.play();
   });
 
   TrackPlayer.addEventListener(Event.RemotePause, () => {
-    console.log('[PlaybackService] Remote Pause');
     TrackPlayer.pause();
   });
 
   TrackPlayer.addEventListener(Event.RemoteStop, () => {
-    console.log('[PlaybackService] Remote Stop');
     TrackPlayer.stop();
   });
 

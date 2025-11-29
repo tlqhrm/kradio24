@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, Animated, ActivityIndicator, Image } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useRouter } from "expo-router";
+import {useRouter, useSegments} from "expo-router";
 import { useAudio } from "@/contexts/AudioContext";
 import { PlaybackState } from "@/types/radio";
 import { useEffect, useRef } from "react";
@@ -9,7 +9,7 @@ import { Ionicons } from "@expo/vector-icons";
 export default function MiniPlayer() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
-  const { currentStation, playbackState, pause, resume, stop, isPlaying } = useAudio();
+  const { currentStation, playbackState, pause, resume, stop, isPlaying} = useAudio();
   const slideAnim = useRef(new Animated.Value(200)).current;
 
   // 재생 중일 때 미니플레이어 올라오기
@@ -47,7 +47,7 @@ export default function MiniPlayer() {
       <View className="flex-row items-center px-4 py-3">
         {/* 앨범 커버 + 방송국 정보 (클릭 시 전체 화면) */}
         <TouchableOpacity
-          onPress={() => router.push("/player")}
+          onPress={() => {router.push("/player")}}
           className="flex-1 flex-row items-center"
           activeOpacity={0.7}
         >

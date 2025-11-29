@@ -10,5 +10,6 @@ export default function TestPage() {
         <Text className="text-white">Blue Box</Text>
       </View>
     </View>
+
   );
 }

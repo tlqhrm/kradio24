@@ -35,8 +35,9 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
 
   const saveFavorites = async (newFavorites: RadioStation[]) => {
     try {
-      await AsyncStorage.setItem(FAVORITES_KEY, JSON.stringify(newFavorites));
+      // UI 반영을 먼저 수행하고 저장
       setFavorites(newFavorites);
+      await AsyncStorage.setItem(FAVORITES_KEY, JSON.stringify(newFavorites));
     } catch (error) {
       console.error("즐겨찾기 저장 오류:", error);
     }

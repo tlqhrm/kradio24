@@ -192,38 +192,24 @@ export default function DraggableStationList({
   toggleFavorite,
   togglePlayPause,
 }: DraggableStationListProps) {
-  // 내부 state로 data 관리 - 드래그 애니메이션 중 외부 data 변경으로부터 보호
-  const [internalData, setInternalData] = useState<RadioStation[]>(data);
   const [containerHeight, setContainerHeight] = useState<number>(0);
 
-  // 외부 data 변경 시 내부 state 동기화 (카테고리 변경 등)
-  useEffect(() => {
-    console.log('🔵 외부 data 변경 감지, 내부 state 동기화');
-    setInternalData(data);
-  }, [data]);
-
-  console.log("DraggableStationList");
 
   // 드래그 종료 핸들러 - 인덱스 기반 재정렬
   const handleReordered = useCallback(
     (fromIndex: number, toIndex: number) => {
-      console.log('🔵 DraggableStationList.handleReordered 호출', { fromIndex, toIndex });
 
       // 배열 재정렬
-      const newData = [...internalData];
+      const newData = [...data];
       const [movedItem] = newData.splice(fromIndex, 1);
       newData.splice(toIndex, 0, movedItem);
-
-      // 내부 state 즉시 업데이트 → 외부 data 변경 전에 반영
-      setInternalData(newData);
 
       // 부모에게 알림 (애니메이션이 완전히 끝난 후 - 300ms로 조정)
       setTimeout(() => {
         onDragEnd(newData);
-        console.log('🟢 onDragEnd(newData) 완료 (지연 300ms)');
       }, 300);
     },
-    [internalData, onDragEnd]
+    [data, onDragEnd]
   );
 
   // keyExtractor - 안정적인 key
@@ -273,7 +259,7 @@ export default function DraggableStationList({
   return (
     <View style={{ flex: 1 }} onLayout={handleLayout}>
       <DragList
-        data={internalData}
+        data={data}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         onReordered={handleReordered}

@@ -4,16 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b42a910c-f002-4e42-9171-edcb0f067abd" name="변경" comment="일단 드래그앤 드랍 스크롤까지 구현">
+    <list default="true" id="b42a910c-f002-4e42-9171-edcb0f067abd" name="변경" comment="일단 재생 실패 시 스무스하게 다음 트랙으로 넘어감">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/library.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/library.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/player.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/player.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/test.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/DraggableStationList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/DraggableStationList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/MiniPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/MiniPlayer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/contexts/AudioContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/contexts/AudioContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contexts/FavoritesContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/contexts/FavoritesContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contexts/StationOrderContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/contexts/StationOrderContext.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/kradio24.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/kradio24.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/kradio24/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/kradio24/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/PlaybackService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/PlaybackService.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +116,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764258755308</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="일단 재생 실패 시 스무스하게 다음 트랙으로 넘어감">
+      <option name="closed" value="true" />
+      <created>1764337013285</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1764337013285</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,7 +158,8 @@
     <MESSAGE value="일단 드래그앤드랍구현" />
     <MESSAGE value="일단 드래그앤드랍구현 222" />
     <MESSAGE value="일단 드래그앤 드랍 스크롤까지 구현" />
-    <option name="LAST_COMMIT_MESSAGE" value="일단 드래그앤 드랍 스크롤까지 구현" />
+    <MESSAGE value="일단 재생 실패 시 스무스하게 다음 트랙으로 넘어감" />
+    <option name="LAST_COMMIT_MESSAGE" value="일단 재생 실패 시 스무스하게 다음 트랙으로 넘어감" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
