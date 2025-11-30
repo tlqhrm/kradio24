@@ -4,38 +4,109 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b42a910c-f002-4e42-9171-edcb0f067abd" name="변경" comment="일단 배너광고 ok">
+    <list default="true" id="b42a910c-f002-4e42-9171-edcb0f067abd" name="변경" comment="일단 에브리띵 오케이. 앱배포 준비">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/kradio24/app/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/com/kradio24/app/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-hdpi/splashscreen_logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/drawable-hdpi/splashscreen_logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-mdpi/splashscreen_logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/drawable-mdpi/splashscreen_logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-xhdpi/splashscreen_logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/drawable-xhdpi/splashscreen_logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-xxhdpi/splashscreen_logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/drawable-xxhdpi/splashscreen_logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-xxxhdpi/splashscreen_logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/drawable-xxxhdpi/splashscreen_logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values-b+ko/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/values-b+ko/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values-ko/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/values-ko/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/values/colors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/values/styles.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/library.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/library.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/DraggableStationList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/DraggableStationList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contexts/FavoritesContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/contexts/FavoritesContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/station-images.ts" beforeDir="false" afterPath="$PROJECT_DIR$/data/station-images.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/stations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/data/stations.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/kradio24.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/kradio24.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/kradio24/Images.xcassets/SplashScreenBackground.colorset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/ios/kradio24/Images.xcassets/SplashScreenBackground.colorset/Contents.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/kradio24/Images.xcassets/SplashScreenLogo.imageset/image.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/kradio24/Images.xcassets/SplashScreenLogo.imageset/image.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/kradio24/Images.xcassets/SplashScreenLogo.imageset/image@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/kradio24/Images.xcassets/SplashScreenLogo.imageset/image@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/kradio24/Images.xcassets/SplashScreenLogo.imageset/image@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/kradio24/Images.xcassets/SplashScreenLogo.imageset/image@3x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/kradio24/SplashScreen.storyboard" beforeDir="false" afterPath="$PROJECT_DIR$/ios/kradio24/SplashScreen.storyboard" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/kradio24/Supporting/ko.lproj/InfoPlist.strings" beforeDir="false" afterPath="$PROJECT_DIR$/ios/kradio24/Supporting/ko.lproj/InfoPlist.strings" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/withLocalizedAppName.js" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/withLocalizedAppName.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/debug.keystore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/debug/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/kradio24/app/MainActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/kradio24/app/MainApplication.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-hdpi/splashscreen_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-mdpi/splashscreen_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-xhdpi/splashscreen_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-xxhdpi/splashscreen_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-xxxhdpi/splashscreen_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable/rn_edit_text_material.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-hdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values-b+en/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values-b+ko/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values-ko/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values-night/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values/styles.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/afn.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/afn.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/bbs.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/bbs.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/cbs-joy4u.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/cbs-joy4u.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/cbs-music.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/cbs-music.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/cbs.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/cbs.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/cpbc.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/cpbc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/ebs.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/ebs.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/febc.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/febc.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/ifm.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/ifm.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/kbs-1fm.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/kbs-1fm.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/kbs-2fm.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/kbs-2fm.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/kbs.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/kbs.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/kbs1(1).png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/kbs1(1).png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/kbs1.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/kbs1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/kbs2.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/kbs2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/kbs3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/kbs3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/kforce.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/kforce.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/kibf.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/kibf.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/mbc-atm.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/mbc-atm.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/mbc-fm4u.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/mbc-fm4u.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/mbc1.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/mbc1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/obs.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/obs.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/sbs-gorila.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/sbs-gorila.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/sbs-lovefm.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/sbs-lovefm.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/sbs-powerfm.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/sbs-powerfm.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/tbn.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/tbn.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/tbs-e.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/tbs-e.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/tbs.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/tbs.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/wbs.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/wbs.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/stations/ytn.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/stations/ytn.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/.xcode.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Podfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Podfile.properties.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24.xcodeproj/project.pbxproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24.xcodeproj/xcshareddata/xcschemes/kradio24.xcscheme" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24/AppDelegate.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24/Images.xcassets/AppIcon.appiconset/App-Icon-1024x1024@1x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24/Images.xcassets/AppIcon.appiconset/Contents.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24/Images.xcassets/Contents.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24/Images.xcassets/SplashScreenBackground.colorset/Contents.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24/Images.xcassets/SplashScreenLogo.imageset/Contents.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24/Images.xcassets/SplashScreenLogo.imageset/image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24/Images.xcassets/SplashScreenLogo.imageset/image@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24/Images.xcassets/SplashScreenLogo.imageset/image@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24/Info.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24/PrivacyInfo.xcprivacy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24/SplashScreen.storyboard" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24/Supporting/Expo.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24/Supporting/en.lproj/InfoPlist.strings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24/Supporting/ko.lproj/InfoPlist.strings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24/kradio24-Bridging-Header.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24/kradio24.entitlements" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,7 +265,23 @@
       <option name="project" value="LOCAL" />
       <updated>1764503795495</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="일단 에브리띵 오케이. 앱배포 준비">
+      <option name="closed" value="true" />
+      <created>1764510952891</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1764510952891</updated>
+    </task>
+    <task id="LOCAL-00010" summary="일단 에브리띵 오케이. 앱배포 준비">
+      <option name="closed" value="true" />
+      <created>1764510962647</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1764510962647</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -232,7 +319,8 @@
     <MESSAGE value="일단 미디어 컨트롤에서 누르면 앱으로 스무스하게 돌아옴" />
     <MESSAGE value="드래그 ok" />
     <MESSAGE value="일단 배너광고 ok" />
-    <option name="LAST_COMMIT_MESSAGE" value="일단 배너광고 ok" />
+    <MESSAGE value="일단 에브리띵 오케이. 앱배포 준비" />
+    <option name="LAST_COMMIT_MESSAGE" value="일단 에브리띵 오케이. 앱배포 준비" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
