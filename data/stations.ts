@@ -17,7 +17,6 @@ export const CATEGORIES = {
   RELIGION: '종교방송',
   SPECIAL: '특수방송',
   FOREIGN: '외국방송',
-  COMMUNITY: '커뮤니티',
 } as const;
 
 /**
@@ -134,7 +133,7 @@ const STATION_CONFIGS: StationConfig[] = [
     streamUrl: 'https://radio.bsod.kr/stream/?stn=sbs&ch=dmb',
     category: CATEGORIES.SBS,
     artist: 'SBS',
-    artwork: 'https://via.placeholder.com/300x300/FF6600/FFFFFF?text=고릴라M',
+    artwork: STATION_IMAGES.sbsGorila,
   },
 
   // ===== 기타 =====
@@ -143,7 +142,7 @@ const STATION_CONFIGS: StationConfig[] = [
     streamUrl: 'https://radio.bsod.kr/stream/?stn=ebs',
     category: CATEGORIES.EBS,
     artist: 'EBS',
-    artwork: 'https://via.placeholder.com/300x300/00AAFF/FFFFFF?text=EBS+FM',
+    artwork: STATION_IMAGES.ebs,
     description: 'EBS FM - 교육방송',
   },
   {
@@ -151,21 +150,21 @@ const STATION_CONFIGS: StationConfig[] = [
     streamUrl: 'https://radio.bsod.kr/stream/?stn=obs',
     category: CATEGORIES.REGION,
     artist: 'OBS',
-    artwork: 'https://via.placeholder.com/300x300/0088CC/FFFFFF?text=OBS',
+    artwork: STATION_IMAGES.obs,
   },
   {
     name: 'iFM 경인방송',
     streamUrl: 'https://radio.bsod.kr/stream/?stn=ifm',
     category: CATEGORIES.REGION,
     artist: 'iFM',
-    artwork: 'https://via.placeholder.com/300x300/FF9900/FFFFFF?text=iFM',
+    artwork: STATION_IMAGES.ifm,
   },
   {
     name: 'YTN 라디오',
     streamUrl: 'https://radio.bsod.kr/stream/?stn=ytn',
     category: CATEGORIES.YTN,
     artist: 'YTN',
-    artwork: 'https://via.placeholder.com/300x300/CC0000/FFFFFF?text=YTN',
+    artwork: STATION_IMAGES.ytn,
     description: 'YTN 라디오 - 뉴스 & 정보',
   },
   {
@@ -173,21 +172,21 @@ const STATION_CONFIGS: StationConfig[] = [
     streamUrl: 'https://radio.bsod.kr/stream/?stn=tbs&ch=fm',
     category: CATEGORIES.REGION,
     artist: 'TBS',
-    artwork: 'https://via.placeholder.com/300x300/00CC99/FFFFFF?text=TBS+FM',
+    artwork: STATION_IMAGES.tbsFm,
   },
   {
     name: 'TBS eFM',
     streamUrl: 'https://radio.bsod.kr/stream/?stn=tbs&ch=efm',
     category: CATEGORIES.REGION,
     artist: 'TBS',
-    artwork: 'https://via.placeholder.com/300x300/0099CC/FFFFFF?text=TBS+eFM',
+    artwork: STATION_IMAGES.tbsEFm,
   },
   {
     name: 'TBN 경인교통방송',
     streamUrl: 'https://radio.bsod.kr/stream/?stn=tbn',
     category: CATEGORIES.TRAFFIC,
     artist: 'TBN',
-    artwork: 'https://via.placeholder.com/300x300/FF6600/FFFFFF?text=TBN',
+    artwork: '',
   },
 
   // ===== CBS =====

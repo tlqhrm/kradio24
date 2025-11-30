@@ -1,1 +1,2 @@
-name = "KRadio24";
+CFBundleDisplayName = "KRadio24";
+CFBundleName = "KRadio24";

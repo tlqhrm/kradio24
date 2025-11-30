@@ -1,15 +1,22 @@
+import { useState, useCallback } from "react";
 import { Tabs } from "expo-router";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import MiniPlayer from "@/components/MiniPlayer";
-import { useAudio } from "@/contexts/AudioContext";
+import AdBanner from "@/components/AdBanner";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function TabLayout() {
   const insets = useSafeAreaInsets();
+  const [adBannerHeight, setAdBannerHeight] = useState(50);
+
   // 웹에서는 최소 높이 보장
   const bottomInset = Math.max(insets.bottom, 0);
   const tabBarHeight = 60 + bottomInset;
+
+  const handleAdHeightChange = useCallback((height: number) => {
+    setAdBannerHeight(height);
+  }, []);
 
   return (
     <View className="flex-1 bg-black">
@@ -55,7 +62,21 @@ export default function TabLayout() {
           }}
         />
       </Tabs>
-      <MiniPlayer />
+
+      {/* 광고 배너 - 탭바 바로 위에 고정 */}
+      <View
+        style={{
+          position: 'absolute',
+          bottom: tabBarHeight,
+          left: 0,
+          right: 0,
+        }}
+      >
+        <AdBanner onHeightChange={handleAdHeightChange} />
+      </View>
+
+      {/* 미니플레이어 - 광고 배너 위에 떠있음 */}
+      <MiniPlayer adBannerHeight={adBannerHeight} />
     </View>
   );
 }

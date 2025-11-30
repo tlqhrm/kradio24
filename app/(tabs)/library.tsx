@@ -24,9 +24,10 @@ export default function LibraryScreen() {
     setData(ordered);
   }, [favorites, getOrderedStations]);
 
-  // 하단 여백 계산 - 탭바와 분리된 느낌
+  // 하단 여백 계산 - 탭바, 미니플레이어, 광고 영역
   const tabBarHeight = 60 + insets.bottom;
   const miniPlayerHeight = currentStation ? 64 : 0;
+  const adBannerHeight = 50;
 
 
   const handleDragEnd = useCallback((newData: RadioStation[]) => {
@@ -68,7 +69,7 @@ export default function LibraryScreen() {
       </View>
 
       {/* 즐겨찾기 리스트 */}
-      <View style={{ flex: 1, marginBottom: tabBarHeight + miniPlayerHeight, backgroundColor: '#09090b' }}>
+      <View style={{ flex: 1, marginBottom: tabBarHeight + miniPlayerHeight + adBannerHeight, backgroundColor: '#09090b' }}>
         <DraggableStationList
           data={data}
           onDragEnd={handleDragEnd}

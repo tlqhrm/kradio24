@@ -7,8 +7,41 @@ import { FavoritesProvider } from "@/contexts/FavoritesContext";
 import { StationOrderProvider } from "@/contexts/StationOrderContext";
 import {useEffect} from "react";
 import {AppState, Linking, BackHandler, Platform, ToastAndroid} from "react-native";
+import mobileAds from 'react-native-google-mobile-ads';
+import { requestTrackingPermissionsAsync } from 'expo-tracking-transparency';
 
 export default function RootLayout() {
+  // iOS ATT 권한 요청 및 AdMob 초기화 (2025 규정 준수)
+  useEffect(() => {
+    const initializeAds = async () => {
+      try {
+        // 1단계: iOS ATT 권한 요청 (AdMob 초기화 전에 필수)
+        if (Platform.OS === 'ios') {
+          console.log('📱 Requesting iOS tracking permission...');
+          const { status } = await requestTrackingPermissionsAsync();
+          console.log(`✅ Tracking permission status: ${status}`);
+        }
+
+        // 2단계: AdMob SDK 초기화
+        console.log('🚀 Setting up AdMob...');
+        const adapterStatuses = await mobileAds().initialize();
+        console.log('✅ AdMob initialized successfully');
+        console.log('Adapter statuses:', JSON.stringify(adapterStatuses, null, 2));
+
+        // 3단계: 테스트 기기 설정
+        await mobileAds().setRequestConfiguration({
+          testDeviceIdentifiers: ['EMULATOR'],
+          maxAdContentRating: 'G',
+        });
+        console.log('✅ Test device configuration set');
+      } catch (error) {
+        console.error('❌ Ads setup failed:', error);
+      }
+    };
+
+    initializeAds();
+  }, []);
+
   useEffect(() => {
     if (Platform.OS !== 'android') return;
 

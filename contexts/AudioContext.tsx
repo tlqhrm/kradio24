@@ -22,6 +22,7 @@ interface AudioContextType {
   stop: () => void;
   togglePlayPause: (station: RadioStation) => Promise<void>;
   isPlaying: boolean;
+  isPlayerReady: boolean;
   // 플레이리스트 관련
   playlist: RadioStation[];
   setPlaylist: (stations: RadioStation[]) => void;
@@ -201,11 +202,13 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   // ============================================
-  // 앱 시작 시 저장된 재생 상태 불러오기
+  // 앱 시작 시 저장된 재생 상태 불러오기 (플레이어 초기화 후)
   // ============================================
   useEffect(() => {
-    loadPlaybackState();
-  }, []);
+    if (isPlayerReady) {
+      loadPlaybackState();
+    }
+  }, [isPlayerReady]);
 
   // ============================================
   // 재생 상태 자동 저장
@@ -565,6 +568,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         stop,
         togglePlayPause,
         isPlaying,
+        isPlayerReady,
         playlist,
         setPlaylist,
         playNext,

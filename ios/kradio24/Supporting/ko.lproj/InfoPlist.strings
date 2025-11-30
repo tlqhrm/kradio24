@@ -1,1 +1,2 @@
-name = "한국라디오24";
+CFBundleDisplayName = "한국라디오24";
+CFBundleName = "한국라디오24";

@@ -38,10 +38,10 @@ export default function HomeScreen() {
     setPlaylist(ordered);
   }, [selectedCategory, getOrderedStations, setPlaylist, isLoading]);
 
-  // 하단 여백 계산 - 탭바와 분리된 느낌
+  // 하단 여백 계산 - 탭바, 미니플레이어, 광고 영역
   const tabBarHeight = 60 + insets.bottom;
   const miniPlayerHeight = currentStation ? 64 : 0;
-
+  const adBannerHeight = 50;
 
   const handleDragEnd = useCallback((newData: RadioStation[]) => {
     setData(newData);
@@ -94,7 +94,7 @@ export default function HomeScreen() {
       </View>
 
       {/* 방송국 리스트 */}
-      <View style={{ flex: 1, marginBottom: tabBarHeight + miniPlayerHeight }}>
+      <View style={{ flex: 1, marginBottom: tabBarHeight + miniPlayerHeight + adBannerHeight }}>
         <DraggableStationList
           data={data}
           onDragEnd={handleDragEnd}

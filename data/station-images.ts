@@ -30,6 +30,13 @@ export const STATION_IMAGES = {
   // ===== SBS =====
   sbsLovefm: require('@/assets/images/stations/sbs-lovefm.png'),
   sbsPowerfm: require('@/assets/images/stations/sbs-powerfm.png'),
+  sbsGorila: require('@/assets/images/stations/sbs-gorila.png'),
+  ebs: require('@/assets/images/stations/ebs.png'),
+  obs: require('@/assets/images/stations/obs.png'),
+  ytn: require('@/assets/images/stations/ytn.png'),
+  ifm: require('@/assets/images/stations/ifm.png'),
+  tbsFm: require('@/assets/images/stations/tbs.png'),
+  tbsEFm: require('@/assets/images/stations/tbs-e.png'),
 
   // 기타 방송국...
 } as const;

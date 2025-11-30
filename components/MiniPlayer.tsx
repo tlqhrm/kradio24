@@ -1,20 +1,27 @@
 import { View, Text, TouchableOpacity, Animated, ActivityIndicator, Image } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import {useRouter, useSegments} from "expo-router";
+import { useRouter } from "expo-router";
 import { useAudio } from "@/contexts/AudioContext";
 import { PlaybackState } from "@/types/radio";
 import { useEffect, useRef } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function MiniPlayer() {
+interface MiniPlayerProps {
+  adBannerHeight?: number;
+}
+
+export default function MiniPlayer({ adBannerHeight = 50 }: MiniPlayerProps) {
   const insets = useSafeAreaInsets();
   const router = useRouter();
-  const { currentStation, playbackState, pause, resume, stop, isPlaying} = useAudio();
+  const { currentStation, playbackState, pause, resume, stop, isPlaying, isPlayerReady } = useAudio();
   const slideAnim = useRef(new Animated.Value(200)).current;
+
+  // 플레이어 준비 완료 + 방송국 있음 + IDLE 아닐 때만 미니플레이어 표시
+  const shouldShow = isPlayerReady && currentStation && playbackState !== PlaybackState.IDLE;
 
   // 재생 중일 때 미니플레이어 올라오기
   useEffect(() => {
-    if (currentStation && playbackState !== PlaybackState.IDLE) {
+    if (shouldShow) {
       Animated.spring(slideAnim, {
         toValue: 0,
         useNativeDriver: true,
@@ -28,9 +35,9 @@ export default function MiniPlayer() {
         useNativeDriver: true,
       }).start();
     }
-  }, [currentStation, playbackState]);
+  }, [shouldShow]);
 
-  if (!currentStation || playbackState === PlaybackState.IDLE) {
+  if (!shouldShow) {
     return null;
   }
 
@@ -40,7 +47,7 @@ export default function MiniPlayer() {
     <Animated.View
       style={{
         transform: [{ translateY: slideAnim }],
-        bottom: tabBarHeight,
+        bottom: tabBarHeight + adBannerHeight,
       }}
       className="absolute left-0 right-0 bg-zinc-800 border-t border-zinc-700"
     >

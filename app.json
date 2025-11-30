@@ -3,6 +3,14 @@
     "scheme": "com.kradio24.app",
     "plugins": [
       "expo-router",
+      "./plugins/withAndroidForegroundService",
+      "./plugins/withLocalizedAppName",
+      [
+        "expo-tracking-transparency",
+        {
+          "userTrackingPermission": "맞춤형 광고를 제공하기 위해 사용됩니다."
+        }
+      ],
       [
         "expo-build-properties",
         {
@@ -23,11 +31,20 @@
           }
         }
       ],
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-8989747852708874~4281999121",
+          "iosAppId": "ca-app-pub-8989747852708874~5775151997",
+          "userTrackingUsageDescription": "맞춤형 광고를 제공하기 위해 사용됩니다."
+        }
+      ],
       "expo-asset",
       "expo-localization"
     ],
     "name": "KRadio24",
     "slug": "kradio24",
+    "version": "1.0.0",
     "icon": "./assets/images/logo.png",
     "splash": {
       "image": "./assets/images/logo.png",
@@ -44,10 +61,13 @@
     },
     "userInterfaceStyle": "automatic",
     "android": {
+      "versionCode": 1,
       "permissions": [
         "INTERNET",
         "FOREGROUND_SERVICE",
-        "WAKE_LOCK"
+        "FOREGROUND_SERVICE_MEDIA_PLAYBACK",
+        "WAKE_LOCK",
+        "com.google.android.gms.permission.AD_ID"
       ],
       "package": "com.kradio24.app",
       "adaptiveIcon": {
@@ -56,6 +76,7 @@
       }
     },
     "ios": {
+      "buildNumber": "1",
       "supportsTablet": true,
       "bundleIdentifier": "com.kradio24.app",
       "icon": "./assets/images/logo.png",
