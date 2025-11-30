@@ -29,18 +29,11 @@ export default function LibraryScreen() {
   const miniPlayerHeight = currentStation ? 64 : 0;
 
 
-  const handleSetPlaylist = useCallback(() => {
-    setPlaylist(data);
-  }, [setPlaylist, data]);
-
   const handleDragEnd = useCallback((newData: RadioStation[]) => {
     setData(newData);
     updateStationOrder(newData);
-
-    if (currentStation) {
-      setPlaylist(newData);
-    }
-  }, [currentStation, setPlaylist, updateStationOrder]);
+    setPlaylist(newData); // 드래그 순서 변경 시 항상 플레이리스트 업데이트
+  }, [setPlaylist, updateStationOrder]);
 
   if (favorites.length === 0) {
     return (
@@ -82,7 +75,7 @@ export default function LibraryScreen() {
           bottomPadding={32}
           currentStation={currentStation}
           playbackState={playbackState}
-          onSetPlaylist={handleSetPlaylist}
+          setPlaylist={setPlaylist}
           isFavorite={isFavorite}
           toggleFavorite={toggleFavorite}
           togglePlayPause={togglePlayPause}

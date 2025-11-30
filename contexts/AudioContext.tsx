@@ -41,8 +41,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const [playlist, setPlaylist] = useState<RadioStation[]>([]);
   const [isPlayerReady, setIsPlayerReady] = useState(false);
 
-  // playlist 변경 로그
-
   // ============================================
   // Refs: 이벤트 리스너와 동기화
   // ============================================

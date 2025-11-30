@@ -8,8 +8,11 @@ import {
 } from "react-native";
 import { RadioStation, PlaybackState } from "@/types/radio";
 import { Ionicons } from "@expo/vector-icons";
-import { useEffect, useCallback, memo, useState, useRef } from "react";
-import DragList, { DragListRenderItemInfo } from "react-native-draglist";
+import { useEffect, useCallback, memo, useRef, useLayoutEffect } from "react";
+import DraggableFlatList, {
+  RenderItemParams,
+  ScaleDecorator,
+} from "react-native-draggable-flatlist";
 
 interface DraggableStationListProps {
   data: RadioStation[];
@@ -17,20 +20,19 @@ interface DraggableStationListProps {
   bottomPadding: number;
   currentStation: RadioStation | null;
   playbackState: PlaybackState;
-  onSetPlaylist: () => void;
+  setPlaylist: (stations: RadioStation[]) => void;
   isFavorite: (id: string) => boolean;
   toggleFavorite: (station: RadioStation) => void;
   togglePlayPause: (station: RadioStation) => void;
 }
 
-// 아이템 고정 높이 (px-5 py-3 + 내용)
+// 아이템 고정 높이
 const ITEM_HEIGHT = 80;
 
-// Row 컴포넌트를 memo로 분리 - 불필요한 리렌더 방지
+// Row 컴포넌트를 memo로 분리
 interface StationRowProps {
   item: RadioStation;
-  onDragStart: () => void;
-  onDragEnd: () => void;
+  drag: () => void;
   isActive: boolean;
   isCurrentStation: boolean;
   isCurrentPlaying: boolean;
@@ -43,8 +45,7 @@ interface StationRowProps {
 const StationRow = memo<StationRowProps>(
   ({
     item,
-    onDragStart,
-    onDragEnd,
+    drag,
     isActive,
     isCurrentStation,
     isCurrentPlaying,
@@ -53,18 +54,12 @@ const StationRow = memo<StationRowProps>(
     onPressStation,
     onPressFavorite,
   }) => {
-    // 부드러운 애니메이션을 위한 Animated Values
     const scaleAnim = useRef(new Animated.Value(1)).current;
     const opacityAnim = useRef(new Animated.Value(1)).current;
 
     useEffect(() => {
       Animated.parallel([
-        Animated.spring(scaleAnim, {
-          toValue: isActive ? 1.05 : 1,
-          useNativeDriver: true,
-          friction: 7, // 드래그 종료 시 더 빠른 복귀 (5 → 7)
-          tension: 50, // 좀 더 탄력있게 (40 → 50)
-        }),
+
         Animated.timing(opacityAnim, {
           toValue: isActive ? 0.85 : 1,
           duration: isActive ? 200 : 150, // 종료 시 더 빠르게
@@ -72,7 +67,6 @@ const StationRow = memo<StationRowProps>(
         }),
       ]).start();
     }, [isActive, scaleAnim, opacityAnim]);
-
     return (
       <Animated.View
         style={{
@@ -80,6 +74,7 @@ const StationRow = memo<StationRowProps>(
           opacity: opacityAnim,
         }}
       >
+      <ScaleDecorator>
         <View className="px-4 pb-1">
           <View
             className={`bg-zinc-800 rounded-xl px-4 py-3 flex-row items-center border ${
@@ -157,8 +152,8 @@ const StationRow = memo<StationRowProps>(
 
               {/* 드래그 핸들 */}
               <TouchableOpacity
-                onPressIn={onDragStart}
-                onPressOut={onDragEnd}
+                onLongPress={drag}
+                delayLongPress={100}
                 className="w-10 h-10 items-center justify-center"
               >
                 <Ionicons name="reorder-three" size={24} color="#71717a" />
@@ -166,10 +161,10 @@ const StationRow = memo<StationRowProps>(
             </View>
           </View>
         </View>
+      </ScaleDecorator>
       </Animated.View>
     );
   },
-  // 성능 최적화: item 객체와 상태값만 비교
   (prev, next) =>
     prev.item === next.item &&
     prev.isActive === next.isActive &&
@@ -188,37 +183,34 @@ export default function DraggableStationList({
   currentStation,
   playbackState,
   isFavorite,
-  onSetPlaylist,
+  setPlaylist,
   toggleFavorite,
   togglePlayPause,
 }: DraggableStationListProps) {
-  const [containerHeight, setContainerHeight] = useState<number>(0);
+  // 항상 최신 data를 참조하기 위한 ref
+  const dataRef = useRef<RadioStation[]>(data);
 
+  // data가 변경될 때마다 ref 업데이트 (렌더링 전에)
+  useLayoutEffect(() => {
+    dataRef.current = data;
+  }, [data]);
 
-  // 드래그 종료 핸들러 - 인덱스 기반 재정렬
-  const handleReordered = useCallback(
-    (fromIndex: number, toIndex: number) => {
-
-      // 배열 재정렬
-      const newData = [...data];
-      const [movedItem] = newData.splice(fromIndex, 1);
-      newData.splice(toIndex, 0, movedItem);
-
-      // 부모에게 알림 (애니메이션이 완전히 끝난 후 - 300ms로 조정)
-      setTimeout(() => {
-        onDragEnd(newData);
-      }, 300);
-    },
-    [data, onDragEnd]
-  );
-
-  // keyExtractor - 안정적인 key
+  // keyExtractor
   const keyExtractor = useCallback((item: RadioStation) => item.id, []);
 
-  // renderItem을 useCallback으로 최적화
+  // ref를 사용하여 항상 최신 data 참조
+  const handlePressStation = useCallback((item: RadioStation) => {
+    setPlaylist(dataRef.current);  // ref를 통해 최신 data 사용
+    togglePlayPause(item);
+  }, [setPlaylist, togglePlayPause]);
+
+  const handlePressFavorite = useCallback((item: RadioStation) => {
+    toggleFavorite(item);
+  }, [toggleFavorite]);
+
+  // renderItem - DraggableFlatList API 사용
   const renderItem = useCallback(
-    (info: DragListRenderItemInfo<RadioStation>) => {
-      const { item, onDragStart, onDragEnd, isActive } = info;
+    ({ item, drag, isActive }: RenderItemParams<RadioStation>) => {
       const isCurrentStation = currentStation?.id === item.id;
       const isCurrentPlaying =
         isCurrentStation && playbackState === PlaybackState.PLAYING;
@@ -226,52 +218,44 @@ export default function DraggableStationList({
         isCurrentStation && playbackState === PlaybackState.LOADING;
       const favorite = isFavorite(item.id);
 
-      // 인라인 콜백 제거 - useCallback은 컴포넌트 레벨에서만 가능하므로
-      // 여기서는 함수를 미리 생성
-      const handlePressStation = () => {togglePlayPause(item); onSetPlaylist()};
-      const handlePressFavorite = () => toggleFavorite(item);
-
       return (
         <StationRow
           item={item}
-          onDragStart={onDragStart}
-          onDragEnd={onDragEnd}
+          drag={drag}
           isActive={isActive}
           isCurrentStation={isCurrentStation}
           isCurrentPlaying={isCurrentPlaying}
           isCurrentLoading={isCurrentLoading}
           favorite={favorite}
-          onPressStation={handlePressStation}
-          onPressFavorite={handlePressFavorite}
+          onPressStation={() => handlePressStation(item)}
+          onPressFavorite={() => handlePressFavorite(item)}
         />
       );
     },
-    [currentStation, playbackState, isFavorite, togglePlayPause, toggleFavorite]
+    [currentStation, playbackState, isFavorite, handlePressStation, handlePressFavorite]
   );
 
-  // 컨테이너 높이 측정
-  const handleLayout = useCallback((event: any) => {
-    const { height } = event.nativeEvent.layout;
-    setContainerHeight(height);
-  }, []);
-
+  // 드래그 종료 핸들러
+  const handleDragEnd = useCallback(
+    ({ data: newData }: { data: RadioStation[] }) => {
+      onDragEnd(newData);
+    },
+    [onDragEnd]
+  );
 
   return (
-    <View style={{ flex: 1 }} onLayout={handleLayout}>
-      <DragList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={keyExtractor}
-        onReordered={handleReordered}
-        contentContainerStyle={{
-          flexGrow: 1,
-          paddingTop: 0,
-          paddingBottom: bottomPadding,
-          minHeight: containerHeight,
-        }}
-        showsVerticalScrollIndicator={false}
-        style={{ backgroundColor: 'transparent' }}
-      />
-    </View>
+    <DraggableFlatList
+      data={data}
+      renderItem={renderItem}
+      keyExtractor={keyExtractor}
+      onDragEnd={handleDragEnd}
+      autoscrollThreshold={0.3}
+      autoscrollSpeed={100}
+      containerStyle={{ flex: 1 }}
+      contentContainerStyle={{
+        paddingBottom: bottomPadding,
+      }}
+      showsVerticalScrollIndicator={true}
+    />
   );
 }

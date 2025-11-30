@@ -17,13 +17,16 @@ export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const { currentStation, setPlaylist, togglePlayPause, playbackState } = useAudio();
   const { isFavorite, toggleFavorite } = useFavorites();
-  const { getOrderedStations, updateStationOrder } = useStationOrder();
+  const { getOrderedStations, updateStationOrder, isLoading } = useStationOrder();
   const [selectedCategory, setSelectedCategory] = useState<string>("전체");
   const [data, setData] = useState<RadioStation[]>([]);
   const categories = ["전체", ...getAllCategories()];
 
   // 카테고리 필터링 및 순서 적용
   useEffect(() => {
+    // StationOrderContext 로딩 완료 후에만 실행
+    if (isLoading) return;
+
     const filtered = selectedCategory === "전체"
       ? STATIONS
       : STATIONS.filter(station => station.category === selectedCategory);
@@ -33,26 +36,18 @@ export default function HomeScreen() {
 
     // 플레이리스트도 함께 업데이트
     setPlaylist(ordered);
-  }, [selectedCategory, getOrderedStations, setPlaylist]);
+  }, [selectedCategory, getOrderedStations, setPlaylist, isLoading]);
 
   // 하단 여백 계산 - 탭바와 분리된 느낌
   const tabBarHeight = 60 + insets.bottom;
   const miniPlayerHeight = currentStation ? 64 : 0;
 
 
-  const handleSetPlaylist = useCallback(() => {
-    setPlaylist(data);
-  }, [setPlaylist, data]);
-
-
   const handleDragEnd = useCallback((newData: RadioStation[]) => {
     setData(newData);
-    updateStationOrder(newData);
-
-    if (currentStation) {
-      setPlaylist(newData);
-    }
-  }, [currentStation, setPlaylist, updateStationOrder]);
+    updateStationOrder(newData); // 백그라운드에서 저장 - UI 블로킹 방지
+    setPlaylist(newData); // 드래그 순서 변경 시 항상 플레이리스트 업데이트
+  }, [setPlaylist, updateStationOrder]);
 
   return (
     <SafeAreaView className="flex-1 bg-zinc-950 ">
@@ -106,7 +101,7 @@ export default function HomeScreen() {
           bottomPadding={32}
           currentStation={currentStation}
           playbackState={playbackState}
-          onSetPlaylist={handleSetPlaylist}
+          setPlaylist={setPlaylist}
           isFavorite={isFavorite}
           toggleFavorite={toggleFavorite}
           togglePlayPause={togglePlayPause}
