@@ -19,7 +19,7 @@ const withAndroidLocalizedName = (config) => {
 
     const koStringsXml = `<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">한국라디오24</string>
+    <string name="app_name">한국 라디오24</string>
 </resources>
 `;
 
@@ -47,8 +47,8 @@ const withIOSLocalizedName = (config) => {
 
     // 한국어 InfoPlist.strings
     if (fs.existsSync(koLprojDir)) {
-      const koContent = `CFBundleDisplayName = "한국라디오24";
-CFBundleName = "한국라디오24";
+      const koContent = `CFBundleDisplayName = "한국 라디오24";
+CFBundleName = "한국 라디오24";
 `;
       fs.writeFileSync(koStringsPath, koContent, 'utf-8');
     }

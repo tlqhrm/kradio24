@@ -4,25 +4,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b42a910c-f002-4e42-9171-edcb0f067abd" name="변경" comment="드래그 ok">
+    <list default="true" id="b42a910c-f002-4e42-9171-edcb0f067abd" name="변경" comment="일단 배너광고 ok">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/kradio24/app/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/com/kradio24/app/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-hdpi/splashscreen_logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/drawable-hdpi/splashscreen_logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-mdpi/splashscreen_logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/drawable-mdpi/splashscreen_logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-xhdpi/splashscreen_logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/drawable-xhdpi/splashscreen_logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-xxhdpi/splashscreen_logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/drawable-xxhdpi/splashscreen_logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-xxxhdpi/splashscreen_logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/drawable-xxxhdpi/splashscreen_logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values-b+ko/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/values-b+ko/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values-ko/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/values-ko/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/values/styles.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(tabs)/library.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/library.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/MiniPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/MiniPlayer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contexts/AudioContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/contexts/AudioContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/DraggableStationList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/DraggableStationList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contexts/FavoritesContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/contexts/FavoritesContext.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/station-images.ts" beforeDir="false" afterPath="$PROJECT_DIR$/data/station-images.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/stations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/data/stations.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/kradio24.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/kradio24.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/kradio24/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/kradio24/Info.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/kradio24/Supporting/en.lproj/InfoPlist.strings" beforeDir="false" afterPath="$PROJECT_DIR$/ios/kradio24/Supporting/en.lproj/InfoPlist.strings" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24/Images.xcassets/SplashScreenBackground.colorset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/ios/kradio24/Images.xcassets/SplashScreenBackground.colorset/Contents.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24/Images.xcassets/SplashScreenLogo.imageset/image.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/kradio24/Images.xcassets/SplashScreenLogo.imageset/image.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24/Images.xcassets/SplashScreenLogo.imageset/image@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/kradio24/Images.xcassets/SplashScreenLogo.imageset/image@2x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24/Images.xcassets/SplashScreenLogo.imageset/image@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/kradio24/Images.xcassets/SplashScreenLogo.imageset/image@3x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/kradio24/SplashScreen.storyboard" beforeDir="false" afterPath="$PROJECT_DIR$/ios/kradio24/SplashScreen.storyboard" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/kradio24/Supporting/ko.lproj/InfoPlist.strings" beforeDir="false" afterPath="$PROJECT_DIR$/ios/kradio24/Supporting/ko.lproj/InfoPlist.strings" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/withLocalizedAppName.js" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/withLocalizedAppName.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,7 +186,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764493352050</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="일단 배너광고 ok">
+      <option name="closed" value="true" />
+      <created>1764503795495</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1764503795495</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -210,7 +231,8 @@
     <MESSAGE value="일단 재생 실패 시 스무스하게 다음 트랙으로 넘어감" />
     <MESSAGE value="일단 미디어 컨트롤에서 누르면 앱으로 스무스하게 돌아옴" />
     <MESSAGE value="드래그 ok" />
-    <option name="LAST_COMMIT_MESSAGE" value="드래그 ok" />
+    <MESSAGE value="일단 배너광고 ok" />
+    <option name="LAST_COMMIT_MESSAGE" value="일단 배너광고 ok" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

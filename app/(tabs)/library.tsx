@@ -1,77 +1,55 @@
 import { View, Text } from "react-native";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
-import { useState, useEffect, useCallback } from "react";
+import { useCallback } from "react";
 import { useFavorites } from "@/contexts/FavoritesContext";
 import { useAudio } from "@/contexts/AudioContext";
 import { useStationOrder } from "@/contexts/StationOrderContext";
 import { RadioStation } from "@/types/radio";
 import { Ionicons } from "@expo/vector-icons";
-import StationContextMenu from "@/components/StationContextMenu";
 import DraggableStationList from "@/components/DraggableStationList";
-import { APP_NAME } from "@/constants/i18n";
+
+const EmptyFavorites = () => (
+  <View className="flex-1 items-center justify-center px-8">
+    <Ionicons name="heart-outline" size={72} color="#ef4444" style={{ marginBottom: 16 }} />
+    <Text className="text-white text-xl font-semibold mb-2">
+      즐겨찾기가 비어있습니다
+    </Text>
+    <Text className="text-zinc-300 text-center">
+      좋아하는 방송국을 추가해보세요
+    </Text>
+  </View>
+);
 
 export default function LibraryScreen() {
   const insets = useSafeAreaInsets();
   const { favorites, isFavorite, toggleFavorite } = useFavorites();
   const { currentStation, setPlaylist, togglePlayPause, playbackState } = useAudio();
-  const { getOrderedStations, updateStationOrder } = useStationOrder();
-  const [data, setData] = useState<RadioStation[]>([]);
-
-  // 즐겨찾기 순서 적용
-  useEffect(() => {
-    const ordered = getOrderedStations(favorites);
-    console.log("즐겨찾기 로드 및 정렬:", ordered.map(s => s.name));
-    setData(ordered);
-  }, [favorites, getOrderedStations]);
+  const { updateStationOrder } = useStationOrder();
 
   // 하단 여백 계산 - 탭바, 미니플레이어, 광고 영역
   const tabBarHeight = 60 + insets.bottom;
   const miniPlayerHeight = currentStation ? 64 : 0;
-  const adBannerHeight = 50;
-
+  const adBannerHeight = 60;
 
   const handleDragEnd = useCallback((newData: RadioStation[]) => {
-    setData(newData);
     updateStationOrder(newData);
-    setPlaylist(newData); // 드래그 순서 변경 시 항상 플레이리스트 업데이트
+    setPlaylist(newData);
   }, [setPlaylist, updateStationOrder]);
-
-  if (favorites.length === 0) {
-    return (
-      <SafeAreaView className="flex-1 bg-zinc-950">
-        {/* 헤더 */}
-        <View className="px-5 py-4">
-          <Text className="text-3xl font-bold text-white">즐겨찾기</Text>
-        </View>
-
-        {/* 빈 상태 */}
-        <View className="flex-1 items-center justify-center px-8">
-          <Ionicons name="heart-outline" size={72} color="#ef4444" style={{ marginBottom: 16 }} />
-          <Text className="text-white text-xl font-semibold mb-2">
-            즐겨찾기가 비어있습니다
-          </Text>
-          <Text className="text-zinc-300 text-center">
-            좋아하는 방송국을 추가해보세요
-          </Text>
-        </View>
-      </SafeAreaView>
-    );
-  }
 
   return (
     <SafeAreaView className="flex-1 bg-zinc-950">
-      {/* 헤더 */}
       <View className="px-5 py-4">
         <Text className="text-3xl font-bold text-white">즐겨찾기</Text>
-        <Text className="text-zinc-300 text-sm mt-1">
-          {favorites.length}개의 방송국
-        </Text>
+        {favorites.length > 0 && (
+          <Text className="text-zinc-300 text-sm mt-1">
+            {favorites.length}개의 방송국
+          </Text>
+        )}
       </View>
 
-      {/* 즐겨찾기 리스트 */}
       <View style={{ flex: 1, marginBottom: tabBarHeight + miniPlayerHeight + adBannerHeight, backgroundColor: '#09090b' }}>
         <DraggableStationList
-          data={data}
+          data={favorites}
           onDragEnd={handleDragEnd}
           bottomPadding={32}
           currentStation={currentStation}
@@ -80,9 +58,10 @@ export default function LibraryScreen() {
           isFavorite={isFavorite}
           toggleFavorite={toggleFavorite}
           togglePlayPause={togglePlayPause}
+          showAd={favorites.length > 0}
+          ListEmptyComponent={<EmptyFavorites />}
         />
       </View>
-
     </SafeAreaView>
   );
 }

@@ -186,7 +186,7 @@ const STATION_CONFIGS: StationConfig[] = [
     streamUrl: 'https://radio.bsod.kr/stream/?stn=tbn',
     category: CATEGORIES.TRAFFIC,
     artist: 'TBN',
-    artwork: '',
+    artwork: STATION_IMAGES.tbn,
   },
 
   // ===== CBS =====
@@ -195,21 +195,21 @@ const STATION_CONFIGS: StationConfig[] = [
     streamUrl: 'https://radio.bsod.kr/stream/?stn=cbs&ch=sfm',
     category: CATEGORIES.CBS,
     artist: 'CBS',
-    artwork: 'https://via.placeholder.com/300x300/0066FF/FFFFFF?text=CBS+FM',
+    artwork: STATION_IMAGES.cbs,
   },
   {
     name: 'CBS 음악FM',
     streamUrl: 'https://radio.bsod.kr/stream/?stn=cbs&ch=mfm',
     category: CATEGORIES.CBS,
     artist: 'CBS',
-    artwork: 'https://via.placeholder.com/300x300/9933CC/FFFFFF?text=CBS+음악FM',
+    artwork: STATION_IMAGES.cbsMusic,
   },
   {
     name: 'CBS JOY4U',
     streamUrl: 'https://radio.bsod.kr/stream/?stn=cbs&ch=joy4u',
     category: CATEGORIES.CBS,
     artist: 'CBS',
-    artwork: 'https://via.placeholder.com/300x300/FF33CC/FFFFFF?text=JOY4U',
+    artwork: STATION_IMAGES.cbsJoy4u,
   },
 
   // ===== 종교방송 =====
@@ -218,28 +218,21 @@ const STATION_CONFIGS: StationConfig[] = [
     streamUrl: 'https://radio.bsod.kr/stream/?stn=febc',
     category: CATEGORIES.RELIGION,
     artist: 'FEBC',
-    artwork: 'https://via.placeholder.com/300x300/6633FF/FFFFFF?text=FEBC',
+    artwork: STATION_IMAGES.febc,
   },
   {
     name: 'BBS 서울불교방송',
-    streamUrl: 'https://radio.bsod.kr/stream/?stn=bbs',
+    streamUrl: 'https://bbslive.clouducs.com/bbsradio-mlive/radio.stream/playlist.m3u8',
     category: CATEGORIES.RELIGION,
     artist: 'BBS',
-    artwork: 'https://via.placeholder.com/300x300/FF9900/FFFFFF?text=BBS',
+    artwork: STATION_IMAGES.bbs,
   },
   {
     name: 'CPBC 가톨릭평화방송',
     streamUrl: 'https://radio.bsod.kr/stream/?stn=cpbc',
     category: CATEGORIES.RELIGION,
     artist: 'CPBC',
-    artwork: 'https://via.placeholder.com/300x300/9966FF/FFFFFF?text=CPBC',
-  },
-  {
-    name: 'WBS 서울원음방송',
-    streamUrl: 'https://radio.bsod.kr/stream/?stn=wbs',
-    category: CATEGORIES.RELIGION,
-    artist: 'WBS',
-    artwork: 'https://via.placeholder.com/300x300/FF6699/FFFFFF?text=WBS',
+    artwork: STATION_IMAGES.cpbc,
   },
 
   // ===== 특수방송 =====
@@ -248,22 +241,15 @@ const STATION_CONFIGS: StationConfig[] = [
     streamUrl: 'https://radio.bsod.kr/stream/?stn=kookbang',
     category: CATEGORIES.SPECIAL,
     artist: '국방FM',
-    artwork: 'https://via.placeholder.com/300x300/006600/FFFFFF?text=국방FM',
+    artwork: STATION_IMAGES.kforce,
   },
   {
     name: '국악방송',
     streamUrl: 'https://radio.bsod.kr/stream/?stn=kugak',
     category: CATEGORIES.SPECIAL,
     artist: '국악방송',
-    artwork: 'https://via.placeholder.com/300x300/CC6600/FFFFFF?text=국악',
-  },
-  {
-    name: 'AFN FM Humphreys',
-    streamUrl: 'https://radio.bsod.kr/stream/?stn=afn&city=humphreys',
-    category: CATEGORIES.FOREIGN,
-    artist: 'AFN',
-    artwork: 'https://via.placeholder.com/300x300/000099/FFFFFF?text=AFN',
-  },
+    artwork: STATION_IMAGES.kibf,
+  }
 
   // ===== 커뮤니티 FM =====
   // {

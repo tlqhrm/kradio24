@@ -6,7 +6,6 @@ import { RadioStation } from "@/types/radio";
 import { useAudio } from "@/contexts/AudioContext";
 import { useFavorites } from "@/contexts/FavoritesContext";
 import { useStationOrder } from "@/contexts/StationOrderContext";
-import StationContextMenu from "@/components/StationContextMenu";
 import DraggableStationList from "@/components/DraggableStationList";
 import { APP_NAME } from "@/constants/i18n";
 
@@ -41,7 +40,7 @@ export default function HomeScreen() {
   // 하단 여백 계산 - 탭바, 미니플레이어, 광고 영역
   const tabBarHeight = 60 + insets.bottom;
   const miniPlayerHeight = currentStation ? 64 : 0;
-  const adBannerHeight = 50;
+  const adBannerHeight = 60; // 배너 광고 예상 높이
 
   const handleDragEnd = useCallback((newData: RadioStation[]) => {
     setData(newData);

@@ -33,15 +33,6 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const saveFavorites = useCallback(async (newFavorites: RadioStation[]) => {
-    try {
-      await AsyncStorage.setItem(FAVORITES_KEY, JSON.stringify(newFavorites));
-      setFavorites(newFavorites);
-    } catch (error) {
-      console.error("즐겨찾기 저장 오류:", error);
-    }
-  }, []);
-
   const addFavorite = useCallback(async (station: RadioStation) => {
     setFavorites(prev => {
       const newFavorites = [...prev, station];

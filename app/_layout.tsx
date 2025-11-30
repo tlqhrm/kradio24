@@ -5,42 +5,52 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { AudioProvider } from "@/contexts/AudioContext";
 import { FavoritesProvider } from "@/contexts/FavoritesContext";
 import { StationOrderProvider } from "@/contexts/StationOrderContext";
-import {useEffect} from "react";
+import {useEffect, useState, useCallback} from "react";
 import {AppState, Linking, BackHandler, Platform, ToastAndroid} from "react-native";
-import mobileAds from 'react-native-google-mobile-ads';
+import mobileAds, { MaxAdContentRating } from 'react-native-google-mobile-ads';
 import { requestTrackingPermissionsAsync } from 'expo-tracking-transparency';
+import * as SplashScreen from 'expo-splash-screen';
+
+// 스플래시 화면 자동 숨김 방지
+SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const [appIsReady, setAppIsReady] = useState(false);
+
   // iOS ATT 권한 요청 및 AdMob 초기화 (2025 규정 준수)
   useEffect(() => {
-    const initializeAds = async () => {
+    const initializeApp = async () => {
       try {
         // 1단계: iOS ATT 권한 요청 (AdMob 초기화 전에 필수)
         if (Platform.OS === 'ios') {
-          console.log('📱 Requesting iOS tracking permission...');
           const { status } = await requestTrackingPermissionsAsync();
-          console.log(`✅ Tracking permission status: ${status}`);
         }
 
         // 2단계: AdMob SDK 초기화
-        console.log('🚀 Setting up AdMob...');
-        const adapterStatuses = await mobileAds().initialize();
-        console.log('✅ AdMob initialized successfully');
-        console.log('Adapter statuses:', JSON.stringify(adapterStatuses, null, 2));
+        await mobileAds().initialize();
 
         // 3단계: 테스트 기기 설정
         await mobileAds().setRequestConfiguration({
           testDeviceIdentifiers: ['EMULATOR'],
-          maxAdContentRating: 'G',
+          maxAdContentRating: MaxAdContentRating.G,
         });
-        console.log('✅ Test device configuration set');
       } catch (error) {
-        console.error('❌ Ads setup failed:', error);
+        console.error('App initialization failed:', error);
+      } finally {
+        // 초기화 완료
+        setAppIsReady(true);
       }
     };
 
-    initializeAds();
+    initializeApp();
   }, []);
+
+  // 앱 준비 완료 시 스플래시 숨김
+  const onLayoutRootView = useCallback(async () => {
+    if (appIsReady) {
+      await SplashScreen.hideAsync();
+    }
+  }, [appIsReady]);
 
   useEffect(() => {
     if (Platform.OS !== 'android') return;
@@ -80,8 +90,13 @@ export default function RootLayout() {
     return () => sub.remove();
   }, []);
 
+  // 앱 준비 안됐으면 렌더링 안함 (스플래시 유지)
+  if (!appIsReady) {
+    return null;
+  }
+
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <StationOrderProvider>
         <FavoritesProvider>
           <AudioProvider>

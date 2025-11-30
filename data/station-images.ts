@@ -37,6 +37,17 @@ export const STATION_IMAGES = {
   ifm: require('@/assets/images/stations/ifm.png'),
   tbsFm: require('@/assets/images/stations/tbs.png'),
   tbsEFm: require('@/assets/images/stations/tbs-e.png'),
+  tbn: require('@/assets/images/stations/tbn.png'),
+  cbs: require('@/assets/images/stations/cbs.png'),
+  cbsMusic: require('@/assets/images/stations/cbs-music.png'),
+  cbsJoy4u: require('@/assets/images/stations/cbs-joy4u.png'),
+  febc: require('@/assets/images/stations/febc.png'),
+  bbs: require('@/assets/images/stations/bbs.png'),
+  cpbc: require('@/assets/images/stations/cpbc.png'),
+  wbs: require('@/assets/images/stations/wbs.png'),
+  kforce: require('@/assets/images/stations/kforce.png'),
+  kibf: require('@/assets/images/stations/kibf.png'),
+  afn: require('@/assets/images/stations/afn.png'),
 
   // 기타 방송국...
 } as const;
